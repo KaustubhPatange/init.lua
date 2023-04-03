@@ -32,6 +32,8 @@ maps.n["<C-q>"] = { "<cmd>q!<cr>", desc = "Force quit" }
 maps.n["|"] = { "<cmd>vsplit<cr>", desc = "Vertical Split" }
 maps.n["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" }
 maps.n["<leader>m"] = { "i<cr><esc>", desc = "Break line" }
+maps.n["]w"] = { "<C-w>l", desc = "Next Window" }
+maps.n["[w"] = { "<C-w>h", desc = "Previous Window" }
 
 -- Plugin Manager
 maps.n["<leader>p"] = sections.p
