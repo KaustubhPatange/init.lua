@@ -379,4 +379,9 @@ maps.n["<leader>uu"] = { ui.toggle_url_match, desc = "Toggle URL highlight" }
 maps.n["<leader>uw"] = { ui.toggle_wrap, desc = "Toggle wrap" }
 maps.n["<leader>uy"] = { ui.toggle_syntax, desc = "Toggle syntax highlight" }
 
+-- Nvim Spectre mapping
+maps.n["<leader>ur"] = { "<cmd>lua require('spectre').open()<cr>", desc = "Search and replace" }
+maps.n["<leader>uR"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
+  desc = "Search and replace current word" }
+
 utils.set_mappings(astronvim.user_opts("mappings", maps))
