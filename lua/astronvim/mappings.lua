@@ -256,10 +256,18 @@ if is_available "telescope.nvim" then
   maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Find registers" }
   maps.n["<leader>ft"] =
   { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc = "Find themes" }
-  maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" }
+  maps.n["<leader>fw"] = {
+    function()
+      require("telescope.builtin").live_grep({
+        file_ignore_patterns = { "node_modules" },
+      })
+    end,
+    desc = "Find words"
+  }
   maps.n["<leader>fW"] = {
     function()
       require("telescope.builtin").live_grep {
+        file_ignore_patterns = { "node_modules" },
         additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
       }
     end,
@@ -299,6 +307,8 @@ if is_available "toggleterm.nvim" then
   end
   local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
   if python then maps.n["<leader>tp"] = { function() utils.toggle_term_cmd(python) end, desc = "ToggleTerm python" } end
+  maps.n["<leader>tb"] = { "<cmd>terminal<cr>", desc = "Open terminal in new buffer" }
+  -- maps.t["<esc>"] = { "<C-\\><C-n>", desc = "Exit terminal mode" }
   maps.n["<leader>tf"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" }
   maps.n["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "ToggleTerm horizontal split" }
   maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" }
@@ -381,7 +391,9 @@ maps.n["<leader>uy"] = { ui.toggle_syntax, desc = "Toggle syntax highlight" }
 
 -- Nvim Spectre mapping
 maps.n["<leader>ur"] = { "<cmd>lua require('spectre').open()<cr>", desc = "Search and replace" }
-maps.n["<leader>uR"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
-  desc = "Search and replace current word" }
+maps.n["<leader>uR"] = {
+  "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
+  desc = "Search and replace current word"
+}
 
 utils.set_mappings(astronvim.user_opts("mappings", maps))
