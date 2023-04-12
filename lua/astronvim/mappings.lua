@@ -237,8 +237,8 @@ if is_available "telescope.nvim" then
     desc = "Find AstroNvim config files",
   }
   maps.n["<leader>fb"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" }
-  maps.n["<leader>fc"] =
-  { function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" }
+  -- maps.n["<leader>fc"] =
+  -- { function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" }
   maps.n["<leader>fC"] = { function() require("telescope.builtin").commands() end, desc = "Find commands" }
   maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" }
   maps.n["<leader>fF"] = {
@@ -253,25 +253,37 @@ if is_available "telescope.nvim" then
     { function() require("telescope").extensions.notify.notify() end, desc = "Find notifications" }
   end
   maps.n["<leader>fo"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find history" }
-  maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Find registers" }
+  maps.n["<leader>fs"] = {
+    function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end,
+    desc = "Find Symbols"
+  }
+  -- maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Find registers" }
+  maps.n["<leader>fr"] = { "<cmd>lua require('spectre').open()<cr>", desc = "Search and replace" }
+  maps.n["<leader>fR"] = {
+    "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
+    desc = "Search and replace current word"
+  }
   maps.n["<leader>ft"] =
   { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc = "Find themes" }
   maps.n["<leader>fw"] = {
     function()
       require("telescope.builtin").live_grep({
-        file_ignore_patterns = { "node_modules" },
+        file_ignore_patterns = { "node_modules", ".git" },
+        additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
       })
     end,
     desc = "Find words"
   }
   maps.n["<leader>fW"] = {
     function()
+      local cword = vim.fn.expand("<cword>")
       require("telescope.builtin").live_grep {
-        file_ignore_patterns = { "node_modules" },
+        default_text = cword,
+        file_ignore_patterns = { "node_modules", ".git" },
         additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
       }
     end,
-    desc = "Find words in all files",
+    desc = "Find words under cursor",
   }
   maps.n["<leader>l"] = sections.l
   maps.n["<leader>lD"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" }
@@ -388,12 +400,5 @@ maps.n["<leader>ut"] = { ui.toggle_tabline, desc = "Toggle tabline" }
 maps.n["<leader>uu"] = { ui.toggle_url_match, desc = "Toggle URL highlight" }
 maps.n["<leader>uw"] = { ui.toggle_wrap, desc = "Toggle wrap" }
 maps.n["<leader>uy"] = { ui.toggle_syntax, desc = "Toggle syntax highlight" }
-
--- Nvim Spectre mapping
-maps.n["<leader>ur"] = { "<cmd>lua require('spectre').open()<cr>", desc = "Search and replace" }
-maps.n["<leader>uR"] = {
-  "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
-  desc = "Search and replace current word"
-}
 
 utils.set_mappings(astronvim.user_opts("mappings", maps))

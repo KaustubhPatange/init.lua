@@ -10,6 +10,9 @@ return {
     end
   },
   { import = "astrocommunity.colorscheme.catppuccin" },
+  { "rmehri01/onenord.nvim" },
+  { "Shatur/neovim-ayu" },
+  { "AlexvZyl/nordic.nvim" },
   {
     -- further customize the options set by the community
     "catppuccin",
