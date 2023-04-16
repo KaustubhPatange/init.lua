@@ -178,6 +178,14 @@ M.on_attach = function(client, bufnr)
     }
   end
 
+  if client.name == "tsserver" then
+    lsp_mappings.n["<leader>lo"] = {
+      function() vim.lsp.buf.organize_imports() end,
+      desc = "Organize imports",
+    }
+    require("twoslash-queries").attach(client, bufnr)
+  end
+
   if capabilities.documentFormattingProvider and not tbl_contains(M.formatting.disabled, client.name) then
     lsp_mappings.n["<leader>lf"] = {
       function() vim.lsp.buf.format(M.format_opts) end,
@@ -194,9 +202,9 @@ M.on_attach = function(client, bufnr)
     local autoformat = M.formatting.format_on_save
     local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
     if
-      autoformat.enabled
-      and (tbl_isempty(autoformat.allow_filetypes or {}) or tbl_contains(autoformat.allow_filetypes, filetype))
-      and (tbl_isempty(autoformat.ignore_filetypes or {}) or not tbl_contains(autoformat.ignore_filetypes, filetype))
+        autoformat.enabled
+        and (tbl_isempty(autoformat.allow_filetypes or {}) or tbl_contains(autoformat.allow_filetypes, filetype))
+        and (tbl_isempty(autoformat.ignore_filetypes or {}) or not tbl_contains(autoformat.ignore_filetypes, filetype))
     then
       add_buffer_autocmd("lsp_auto_format", bufnr, {
         events = "BufWritePre",
@@ -332,7 +340,7 @@ M.capabilities.textDocument.completion.completionItem.deprecatedSupport = true
 M.capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
 M.capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 M.capabilities.textDocument.completion.completionItem.resolveSupport =
-  { properties = { "documentation", "detail", "additionalTextEdits" } }
+{ properties = { "documentation", "detail", "additionalTextEdits" } }
 M.capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
 M.capabilities = user_opts("lsp.capabilities", M.capabilities)
 M.flags = user_opts "lsp.flags"
@@ -369,6 +377,12 @@ function M.config(server_name)
       end
     end
     lsp_opts.settings = { Lua = { workspace = { checkThirdParty = false } } }
+  end
+  if server_name == "tsserver" then
+    vim.lsp.buf.organize_imports = function()
+      vim.lsp.buf.execute_command { command = "_typescript.organizeImports", arguments = {
+        vim.api.nvim_buf_get_name(0) } }
+    end
   end
   local opts = user_opts(server_config .. server_name, lsp_opts)
   local old_on_attach = server.on_attach
