@@ -67,6 +67,7 @@ return {
     return {
       auto_clean_after_session_restore = true,
       close_if_last_window = true,
+      source = "filesystem",
       source_selector = {
         winbar = true,
         content_layout = "center",
