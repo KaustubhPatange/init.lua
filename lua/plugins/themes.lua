@@ -12,6 +12,32 @@ return {
   { import = "astrocommunity.colorscheme.catppuccin" },
   { "rmehri01/onenord.nvim" },
   { "Shatur/neovim-ayu" },
+  {
+    "marko-cerovac/material.nvim",
+    config = function()
+      vim.g.material_style = "deep ocean"
+    end
+  },
+  {
+    "navarasu/onedark.nvim",
+    config = function()
+      require("onedark").setup({
+        style = "warmer"
+      })
+    end
+  },
+  { "Mofiqul/vscode.nvim" },
+  {
+    "projekt0n/github-nvim-theme",
+    config = function()
+      require("github-theme").setup({
+        theme_style = "dark_default",
+        sidebars = { "qf", "vista_kind", "terminal", "packer" },
+        dark_sidebar = true,
+        dark_float = true,
+      })
+    end
+  },
   { "AlexvZyl/nordic.nvim" },
   {
     -- further customize the options set by the community
