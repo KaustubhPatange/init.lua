@@ -69,7 +69,7 @@ return {
       close_if_last_window = true,
       source = "filesystem",
       source_selector = {
-        winbar = true,
+        winbar = false,
         content_layout = "center",
         tab_labels = {
           filesystem = get_icon "FolderClosed" .. " File",

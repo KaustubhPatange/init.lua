@@ -178,7 +178,7 @@ M.on_attach = function(client, bufnr)
     }
   end
 
-  if client.name == "tsserver" then
+  if client.name == "tsserver" or client.name == "pyright" then
     lsp_mappings.n["<leader>lo"] = {
       function() vim.lsp.buf.organize_imports() end,
       desc = "Organize imports",
@@ -382,6 +382,13 @@ function M.config(server_name)
     vim.lsp.buf.organize_imports = function()
       vim.lsp.buf.execute_command { command = "_typescript.organizeImports", arguments = {
         vim.api.nvim_buf_get_name(0) } }
+    end
+  end
+  if server_name == "pyright" then
+    print("pyright")
+    vim.lsp.buf.organize_imports = function()
+      vim.lsp.buf.execute_command { command = "pyright.organizeimports", arguments = {
+        vim.uri_from_bufnr(0) } }
     end
   end
   local opts = user_opts(server_config .. server_name, lsp_opts)
