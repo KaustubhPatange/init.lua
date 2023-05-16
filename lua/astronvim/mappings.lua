@@ -34,6 +34,7 @@ maps.n["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" }
 maps.n["<leader>m"] = { "i<cr><esc>", desc = "Break line" }
 maps.n["]w"] = { "<C-w>l", desc = "Next Window" }
 maps.n["[w"] = { "<C-w>h", desc = "Previous Window" }
+maps.n["dD"] = { "d^", desc = "Delete till start" }
 
 -- Plugin Manager
 maps.n["<leader>p"] = sections.p
@@ -298,6 +299,18 @@ if is_available "telescope.nvim" then
     end,
     desc = "Search symbols",
   }
+end
+
+-- Trouble
+if is_available "trouble.nvim" then
+  maps.n["<leader>lD"] = { "<cmd>TroubleToggle<cr>", desc = "All diagnostics (Trouble)" }
+end
+
+-- TreeSJ
+if is_available "treesj" then
+  maps.n["<leader>M"] = function()
+    require("treesj").toggle()
+  end
 end
 
 -- Terminal
