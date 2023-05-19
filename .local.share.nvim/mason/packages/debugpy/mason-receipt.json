@@ -1,0 +1,1 @@
+{"name":"debugpy","metrics":{"completion_time":1682406752314,"start_time":1682406749043},"links":{"share":{},"opt":{},"bin":{"debugpy":"debugpy","debugpy-adapter":"debugpy-adapter"}},"primary_source":{"package":"debugpy","type":"pip3"},"secondary_sources":[],"schema_version":"1.1"}
