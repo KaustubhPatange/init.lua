@@ -269,7 +269,7 @@ if is_available "telescope.nvim" then
   maps.n["<leader>fw"] = {
     function()
       require("telescope.builtin").live_grep({
-        file_ignore_patterns = { "node_modules", ".git" },
+        file_ignore_patterns = { "node_modules", ".git", "env" },
         additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
       })
     end,
@@ -280,7 +280,7 @@ if is_available "telescope.nvim" then
       local cword = vim.fn.expand("<cword>")
       require("telescope.builtin").live_grep {
         default_text = cword,
-        file_ignore_patterns = { "node_modules", ".git" },
+        file_ignore_patterns = { "node_modules", ".git", "env" },
         additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
       }
     end,

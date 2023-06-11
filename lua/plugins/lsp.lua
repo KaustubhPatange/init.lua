@@ -20,7 +20,7 @@ return {
       {
         "williamboman/mason-lspconfig.nvim",
         cmd = { "LspInstall", "LspUninstall" },
-        opts = { ensure_installed = { "tsserver" } },
+        opts = { ensure_installed = { "tsserver", "pyright" } },
         config = require "plugins.configs.mason-lspconfig",
       },
     },
