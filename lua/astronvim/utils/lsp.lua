@@ -129,6 +129,17 @@ M.on_attach = function(client, bufnr)
     v = {},
   }
 
+  if is_available "lsp_signature.nvim" then
+    require("lsp_signature").on_attach({
+      bind = true,
+      handler_opts = {
+        border = "rounded"
+      },
+      hint_enable = false,
+      hi_parameter = "LspSignatureActiveParameter",
+    }, bufnr)
+  end
+
   if is_available "mason-lspconfig.nvim" then
     lsp_mappings.n["<leader>li"] = { "<cmd>LspInfo<cr>", desc = "LSP information" }
   end

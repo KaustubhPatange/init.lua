@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-exec "/Users/devel/.local/share/nvim/mason/packages/debugpy/venv/bin/python" -m debugpy.adapter "$@"
