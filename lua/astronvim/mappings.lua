@@ -312,9 +312,7 @@ end
 
 -- TreeSJ
 if is_available "treesj" then
-  maps.n["<leader>M"] = function()
-    require("treesj").toggle()
-  end
+  maps.n["<leader>M"] = { function() require("treesj").toggle() end, desc = "Break lines (treesj)" }
 end
 
 -- Terminal
