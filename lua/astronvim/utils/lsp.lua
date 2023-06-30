@@ -194,6 +194,9 @@ M.on_attach = function(client, bufnr)
       function() vim.lsp.buf.organize_imports() end,
       desc = "Organize imports",
     }
+  end
+
+  if client.name == "tsserver" then
     require("twoslash-queries").attach(client, bufnr)
   end
 
