@@ -14,26 +14,30 @@ return {
         path_display = { "truncate" },
         sorting_strategy = "ascending",
         vimgrep_arguments = {
-          'rg',
-          '--color=never',
-          '--no-heading',
-          '--with-filename',
-          '--line-number',
-          '--column',
-          '--smart-case',
-          '-uu' -- **This is the added flag**
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "-uu", -- **This is the added flag**
         },
+        layout_strategy = "vertical",
         layout_config = {
           horizontal = {
             prompt_position = "top",
             preview_width = 0.55,
+            preview_cutoff = 120,
+            width = 0.87,
+            height = 0.80,
           },
           vertical = {
             mirror = false,
+            width = 0.80,
+            height = 0.87,
+            preview_height = 0.55,
           },
-          width = 0.87,
-          height = 0.80,
-          preview_cutoff = 120,
         },
         mappings = {
           i = {

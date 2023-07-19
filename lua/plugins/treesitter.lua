@@ -20,6 +20,7 @@ return {
   build = ":TSUpdate",
   opts = {
     highlight = { enable = true },
+    auto_install = false,
     incremental_selection = { enable = true },
     autotag = { enable = true },
     context_commentstring = { enable = true, enable_autocmd = false },
