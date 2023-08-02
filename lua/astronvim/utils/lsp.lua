@@ -133,7 +133,7 @@ M.on_attach = function(client, bufnr)
     require("lsp_signature").on_attach({
       bind = true,
       handler_opts = {
-        border = "rounded"
+        border = "rounded",
       },
       hint_enable = false,
       hi_parameter = "LspSignatureActiveParameter",
@@ -196,9 +196,7 @@ M.on_attach = function(client, bufnr)
     }
   end
 
-  if client.name == "tsserver" then
-    require("twoslash-queries").attach(client, bufnr)
-  end
+  if client.name == "tsserver" then require("twoslash-queries").attach(client, bufnr) end
 
   if capabilities.documentFormattingProvider and not tbl_contains(M.formatting.disabled, client.name) then
     lsp_mappings.n["<leader>lf"] = {
@@ -394,15 +392,23 @@ function M.config(server_name)
   end
   if server_name == "tsserver" then
     vim.lsp.buf.organize_imports = function()
-      vim.lsp.buf.execute_command { command = "_typescript.organizeImports", arguments = {
-        vim.api.nvim_buf_get_name(0) } }
+      vim.lsp.buf.execute_command {
+        command = "_typescript.organizeImports",
+        arguments = {
+          vim.api.nvim_buf_get_name(0),
+        },
+      }
     end
   end
   if server_name == "pyright" then
-    print("pyright")
+    print "pyright"
     vim.lsp.buf.organize_imports = function()
-      vim.lsp.buf.execute_command { command = "pyright.organizeimports", arguments = {
-        vim.uri_from_bufnr(0) } }
+      vim.lsp.buf.execute_command {
+        command = "pyright.organizeimports",
+        arguments = {
+          vim.uri_from_bufnr(0),
+        },
+      }
     end
   end
   local opts = user_opts(server_config .. server_name, lsp_opts)
