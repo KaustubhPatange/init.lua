@@ -70,6 +70,7 @@ M.format_opts.filter = function(client)
   local filter = M.formatting.filter
   local disabled = M.formatting.disabled or {}
   -- check if client is fully disabled or filtered by function
+  if client.name == "tsserver" then return false end
   return not (vim.tbl_contains(disabled, client.name) or (type(filter) == "function" and not filter(client)))
 end
 
