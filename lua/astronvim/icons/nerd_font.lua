@@ -45,4 +45,5 @@ return {
   Selected = "❯",
   Spellcheck = "暈",
   TabClose = "",
+  CapsLock = "",
 }

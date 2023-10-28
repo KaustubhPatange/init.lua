@@ -37,4 +37,5 @@ return {
   Selected = "*",
   Spellcheck = "[SPELL]",
   TabClose = "X",
+  CapsLock = "[CAPS]",
 }
