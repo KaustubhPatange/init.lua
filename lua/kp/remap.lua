@@ -33,6 +33,10 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
+vim.opt.ignorecase = true
+vim.opt.cursorline = true  
+vim.opt.infercase = true
+
 -- Yank to system clipboard
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])

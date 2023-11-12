@@ -280,14 +280,5 @@ require("neo-tree").setup({
 
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
+-- Mappings
 nnoremap("<leader>e", "<cmd>Neotree toggle<cr>", "Toggle Neotree")
-nnoremap("<leader>o",
-  function()
-    if vim.bo.filetype == "neo-tree" then
-      vim.cmd.wincmd "p"
-    else
-      vim.cmd.Neotree "focus"
-    end
-  end,
-  ""
-)
