@@ -36,3 +36,7 @@ vim.opt.updatetime = 50
 -- Yank to system clipboard
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+-- Indent/Unindent line
+vim.keymap.set("v", "<S-Tab>", "<gv")
+vim.keymap.set("v", "<Tab>", ">gv")
