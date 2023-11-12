@@ -1,3 +1,4 @@
+local Icons = require("util.icons")
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
 vim.fn.sign_define("DiagnosticSignError",
   {text = " ", texthl = "DiagnosticSignError"})
@@ -43,9 +44,9 @@ require("neo-tree").setup({
       expander_highlight = "NeoTreeExpander",
     },
     icon = {
-      folder_closed = "",
-      folder_open = "",
-      folder_empty = "󰜌",
+      folder_closed = Icons.FolderClosed,
+      folder_open = Icons.FolderOpen,
+      folder_empty = Icons.FolderEmpty,
       -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
       -- then these will never be used.
       default = "*",
@@ -63,16 +64,16 @@ require("neo-tree").setup({
     git_status = {
       symbols = {
         -- Change type
-        added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-        modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-        deleted   = "✖",-- this can only be used in the git_status source
-        renamed   = "󰁕",-- this can only be used in the git_status source
+        added     = Icons.GitAdd, -- or "✚", but this is redundant info if you use git_status_colors on the name
+        modified  = Icons.GitChange, -- or "", but this is redundant info if you use git_status_colors on the name
+        deleted   = Icons.GitDelete,-- this can only be used in the git_status source
+        renamed   = Icons.GitRenamed,-- this can only be used in the git_status source
         -- Status type
-        untracked = "",
-        ignored   = "",
-        unstaged  = "󰄱",
-        staged    = "",
-        conflict  = "",
+        untracked = Icons.GitUntracked,
+        ignored   = Icons.GitIgnored,
+        unstaged  = Icons.GitUnstaged,
+        staged    = Icons.GitStaged,
+        conflict  = Icons.GitConflict,
       }
     },
     -- If you don't want to use these columns, you can set `enabled = false` for each of them individually

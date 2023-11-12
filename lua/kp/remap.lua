@@ -32,3 +32,7 @@ vim.opt.scrolloff = 8
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
+
+-- Yank to system clipboard
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])

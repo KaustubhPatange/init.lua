@@ -1,4 +1,4 @@
-require("util")
+require("util.remap")
 require("kp")
 
 -- Default theme

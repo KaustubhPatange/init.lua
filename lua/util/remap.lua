@@ -1,4 +1,3 @@
-
 -- A utility for adding remap (Normal mode)
 function nnoremap(key, command, desc)
   if desc then
@@ -11,4 +10,9 @@ function nnoremap(key, command, desc)
   end
 end
 
-
+function secmap(key, desc)
+  local wk = require("which-key")
+  wk.register({
+    [key] = { desc }
+  })
+end
