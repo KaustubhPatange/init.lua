@@ -9,8 +9,7 @@ return {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "onsails/lspkind.nvim",
+    "stevearc/conform.nvim",
   },
-  config = function()
-    require("kp.plugins.config.lsp")
-  end
+  config = function() require "kp.plugins.config.lsp" end,
 }
