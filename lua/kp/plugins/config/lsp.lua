@@ -8,11 +8,21 @@ local formatters = {
 }
 
 -- Conform for formatting buffers
-require("conform").setup {
+local slow_format_filetypes = {}
+local conform = require "conform"
+conform.setup {
   formatters_by_ft = formatters,
   format_on_save = function(bufnr)
+    if slow_format_filetypes[vim.bo[bufnr].filetype] then return end
+    local function on_format(err)
+      if err and err:match "timeout$" then slow_format_filetypes[vim.bo[bufnr].filetype] = true end
+    end
     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
-    return { timeout_ms = 500, lsp_fallback = true }
+    return { timeout_ms = 200, lsp_fallback = true }, on_format
+  end,
+  format_after_save = function(bufnr)
+    if not slow_format_filetypes[vim.bo[bufnr].filetype] then return end
+    return { lsp_fallback = true }
   end,
 }
 
@@ -29,6 +39,7 @@ lsp_zero.on_attach(function(client, bufnr)
   nnoremap("gr", function() vim.lsp.buf.references() end, "Find references", opts)
   nnoremap("<leader>lr", function() vim.lsp.buf.rename() end, "Rename Symbol", opts)
   nnoremap("<C-p>", function() vim.lsp.buf.signature_help() end, "Signature help", opts)
+  nnoremap("<leader>lf", function() conform.format { async = true, lsp_fallback = true } end, "Format buffer")
 
   -- Toggle format keymaps
   local setup_format_keymap

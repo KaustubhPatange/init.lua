@@ -1,7 +1,7 @@
 local conform = require "conform"
 
 local function list_formatters()
-  local f = conform.list_all_formatters()
+  local f = conform.list_formatters(0)
   local fmts = {}
   for _, v in pairs(f) do
     if v.available then table.insert(fmts, v.name) end
