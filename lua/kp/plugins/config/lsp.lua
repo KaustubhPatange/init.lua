@@ -5,6 +5,8 @@ local formatters = {
   python = { "isort", "black" },
   javascript = { "prettier" },
   typescript = { "prettier" },
+  javascriptreact = { "prettier" },
+  typescriptreact = { "prettier" },
 }
 
 -- Conform for formatting buffers
@@ -40,6 +42,20 @@ lsp_zero.on_attach(function(client, bufnr)
   nnoremap("<leader>lr", function() vim.lsp.buf.rename() end, "Rename Symbol", opts)
   nnoremap("<C-p>", function() vim.lsp.buf.signature_help() end, "Signature help", opts)
   nnoremap("<leader>lf", function() conform.format { async = true, lsp_fallback = true } end, "Format buffer")
+
+  -- Organize imports
+  local clients_commands = {
+    pyright = "pyright.organizeimports",
+    tsserver = "_typescript.organizeImports",
+  }
+  for name, command in pairs(clients_commands) do
+    if client.name == name then
+      vim.lsp.buf.organize_imports = function()
+        vim.lsp.buf.execute_command { command = command, arguments = { vim.api.nvim_buf_get_name(0) } }
+      end
+      nnoremap("<leader>lo", function() vim.lsp.buf.organize_imports() end, "Organize imports", opts)
+    end
+  end
 
   -- Toggle format keymaps
   local setup_format_keymap
