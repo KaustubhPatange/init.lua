@@ -4,12 +4,12 @@ local opts = {
     close_command = function(n) require("mini.bufremove").delete(n, false) end,
     -- stylua: ignore
     right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
-    diagnostics = "nvim_lsp",
+    -- diagnostics = "nvim_lsp",
     always_show_bufferline = true,
     diagnostics_indicator = function(_, _, diag)
-      local icons = require("lazyvim.config").icons.diagnostics
-      local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-        .. (diag.warning and icons.Warn .. diag.warning or "")
+      local icons = require("util.icons")
+      local ret = (diag.error and icons.DiagnosticError.. diag.error .. " " or "")
+        .. (diag.warning and icons.DiagnosticWarn.. diag.warning or "")
       return vim.trim(ret)
     end,
     offsets = {
@@ -35,24 +35,25 @@ vim.api.nvim_create_autocmd("BufAdd", {
 })
 
 -- Mappings (mini.bufremove)
-nnoremap("<leader>bd", function()
-      local bd = require("mini.bufremove").delete
-      if vim.bo.modified then
-        local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-        if choice == 1 then -- Yes
-          vim.cmd.write()
-          bd(0)
-        elseif choice == 2 then -- No
-          bd(0, true)
-        end
-      else
+local function delete_buffer()
+    local bd = require("mini.bufremove").delete
+    if vim.bo.modified then
+      local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+      if choice == 1 then -- Yes
+        vim.cmd.write()
         bd(0)
+      elseif choice == 2 then -- No
+        bd(0, true)
       end
-  end,
-  "Delete Buffer"
-)
+    else
+      bd(0)
+    end
+end
+
+nnoremap("<leader>bd", delete_buffer, "Delete Buffer")
 -- stylua: ignore
 nnoremap("<leader>bD", function() require("mini.bufremove").delete(0, true) end, "Delete Buffer (Force)")
+nnoremap("<leader>c", delete_buffer, "Delete Buffer (Force)")
 
 -- Mappings (bufferline)
 nnoremap("<leader>bp", "<Cmd>BufferLineTogglePin<CR>", "Toggle pin")

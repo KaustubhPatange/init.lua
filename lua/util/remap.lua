@@ -1,23 +1,24 @@
 -- A utility for adding remap (Normal mode)
-function nnoremap(key, command, desc)
+function nnoremap(key, command, desc, opts)
   if desc then
     local wk = require("which-key")
     wk.register({
       [key] = { command, desc }
-    })
+    }, extend_tbl(opts or {}, {mode="n"}))
   else
-    vim.keymap.set("n", key, command)
+    vim.keymap.set("n", key, command, opts or {})
   end
 end
 
-function vnoremap(key, command, desc)
+-- A utility for adding remap (Visual mode)
+function vnoremap(key, command, desc, opts)
   if desc then
     local wk = require("which-key")
     wk.register({
       [key] = { command, desc }
-    }, {mode = "v"})
+    }, extend_tbl(opts or {}, {mode = "v"}))
   else
-    vim.keymap.set("v", key, command)
+    vim.keymap.set("v", key, command, opts or {})
   end
 end
 
