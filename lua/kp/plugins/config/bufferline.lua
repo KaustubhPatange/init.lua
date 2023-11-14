@@ -5,11 +5,6 @@ local opts = {
     -- stylua: ignore
     right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
 
-    custom_filter = function(buf_number, buf_numbers)
-      if vim.bo[buf_number].filetype ~= "neo-tree" then return true end
-
-      return false
-    end,
     -- diagnostics = "nvim_lsp",
     always_show_bufferline = true,
     diagnostics_indicator = function(_, _, diag)
@@ -21,7 +16,7 @@ local opts = {
     offsets = {
       {
         filetype = "neo-tree",
-        text = "Neo-tree",
+        text = "",
         highlight = "Directory",
         text_align = "left",
       },
