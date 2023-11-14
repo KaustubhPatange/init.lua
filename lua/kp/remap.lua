@@ -9,6 +9,9 @@ vim.opt.termguicolors = true
 -- Hide command line
 vim.o.cmdheight = 0
 
+-- Set maxium height of popup menu
+vim.o.pumheight = 10
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 

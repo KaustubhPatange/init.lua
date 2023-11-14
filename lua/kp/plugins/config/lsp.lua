@@ -57,7 +57,7 @@ lsp_zero.on_attach(function(client, bufnr)
     end
   end
 
-  -- Toggle format keymaps
+  -- Toggle buffer format keymaps
   local setup_format_keymap
   setup_format_keymap = function()
     local function get_status(value)
