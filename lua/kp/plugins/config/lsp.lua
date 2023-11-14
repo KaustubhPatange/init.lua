@@ -22,7 +22,6 @@ lsp_zero.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
   nnoremap("gd", function() vim.lsp.buf.definition() end, "Go to definition", opts)
   nnoremap("K", function() vim.lsp.buf.hover() end, "Show definition", opts)
-  nnoremap("<leader>lS", function() vim.lsp.buf.workspace_symbol() end, "Search workspace symbol", opts)
   nnoremap("<leader>ld", function() vim.diagnostic.open_float() end, "Hover diagnostic", opts)
   nnoremap("[d", function() vim.diagnostic.goto_next() end, "Next diagnostic", opts)
   nnoremap("]d", function() vim.diagnostic.goto_prev() end, "Previous diagnostic", opts)
