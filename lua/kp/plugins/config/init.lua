@@ -7,7 +7,7 @@ local sections = {
   -- d = { name = " Debugger" },
   g = { name = " Git" },
   -- S = { name = "󱂬 Session" },
-  -- t = { name = " Terminal" },
+  t = { name = " Terminal" },
 }
 
 vim.api.nvim_create_autocmd({ "User" }, {
