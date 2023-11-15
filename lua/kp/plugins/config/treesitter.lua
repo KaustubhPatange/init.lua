@@ -3,15 +3,47 @@ local opts = {
   auto_install = false,
   incremental_selection = { enable = true },
   autotag = { enable = true },
+  ensure_installed = { "query", "lua", "javascript", "typescript", "python" },
   context_commentstring = {
     enable = true,
-    enable_autocmd = false,
+    config = {
+      javascript = {
+        __default = "// %s",
+        jsx_element = "{/* %s */}",
+        jsx_fragment = "{/* %s */}",
+        jsx_attribute = "// %s",
+        comment = "// %s",
+      },
+      typescript = {
+        __default = "// %s",
+        __multiline = "/* %s */",
+        jsx_element = "{/* %s */}",
+        jsx_fragment = "{/* %s */}",
+        jsx_attribute = "// %s",
+      },
+    },
   },
-  ensure_installed = { "lua", "javascript", "typescript", "python" },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = "o",
+      toggle_hl_groups = "i",
+      toggle_injected_languages = "t",
+      toggle_anonymous_nodes = "a",
+      toggle_language_display = "I",
+      focus_language = "f",
+      unfocus_language = "F",
+      update = "R",
+      goto_node = "<cr>",
+      show_help = "?",
+    },
+  },
 }
-
-require("ts_context_commentstring").setup {}
 require("nvim-treesitter.configs").setup(opts)
+require("ts_context_commentstring").setup {}
 
 local comment = require "Comment"
 comment.setup {

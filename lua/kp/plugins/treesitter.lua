@@ -1,7 +1,12 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = { "windwp/nvim-ts-autotag", "JoosepAlviste/nvim-ts-context-commentstring", "numToStr/Comment.nvim" },
+    dependencies = {
+      "windwp/nvim-ts-autotag",
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      "numToStr/Comment.nvim",
+      "nvim-treesitter/playground",
+    },
     cmd = {
       "TSBufDisable",
       "TSBufEnable",
@@ -19,16 +24,11 @@ return {
     },
     build = ":TSUpdate",
     lazy = false,
-    config = function()
-      require("kp.plugins.config.treesitter")
-    end
+    config = function() require "kp.plugins.config.treesitter" end,
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
     cmd = { "TSContextDisable", "TSContextEnable", "TSContextToggle" },
-    config = function()
-      require("kp.plugins.config.treesitter-context")
-    end
+    config = function() require "kp.plugins.config.treesitter-context" end,
   },
 }
-

@@ -11,5 +11,5 @@ require("treesitter-context").setup {
   separator = nil,
   zindex = 20, -- The Z-index of the context window
   on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+  pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 }

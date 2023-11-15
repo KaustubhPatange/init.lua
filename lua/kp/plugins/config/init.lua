@@ -20,4 +20,8 @@ vim.api.nvim_create_autocmd({ "User" }, {
   end,
 })
 
+-- Default mappings
+nnoremap("|", "<cmd>vsplit<cr>", "Vertical Split")
+-- nnoremap("-", "<cmd>split<cr>", "Horizontal Split")
+
 return {}
