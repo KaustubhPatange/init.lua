@@ -43,6 +43,12 @@ vim.opt.ignorecase = true
 vim.opt.cursorline = true
 vim.opt.infercase = true
 
+-- Highlight on yank
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+  pattern = "*",
+  command = "lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=100} ",
+})
+
 -- Yank to system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
