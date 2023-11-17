@@ -26,9 +26,4 @@ return {
     lazy = false,
     config = function() require "kp.plugins.config.treesitter" end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    cmd = { "TSContextDisable", "TSContextEnable", "TSContextToggle" },
-    config = function() require "kp.plugins.config.treesitter-context" end,
-  },
 }
