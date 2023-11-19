@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 
 -- Yank to system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({ "n", "v" }, "<leader>Y", [["+Y]])
 
 -- Indent/Unindent line
 vim.keymap.set("v", "<S-Tab>", "<gv")
