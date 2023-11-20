@@ -10,4 +10,5 @@ My personal neovim config.
 - [Node](https://nodejs.org/en/)
 - [Python](https://www.python.org/)
 - [lazygit](https://github.com/jesseduffield/lazygit) - git ui toggle `<leader>gg`
-- [ripgrep](https://github.com/BurntSushi/ripgrep) - telescope, spectre
+- [gnu-sed](https://www.gnu.org/software/sed/) - spectre
+- [ripgrep](https://github.com/BurntSushi/ripgrep) - telescope
