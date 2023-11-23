@@ -43,6 +43,8 @@ vim.opt.ignorecase = true
 vim.opt.cursorline = true
 vim.opt.infercase = true
 
+vim.o.updatetime = 250
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   pattern = "*",
