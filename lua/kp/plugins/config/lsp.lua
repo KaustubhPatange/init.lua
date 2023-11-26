@@ -24,6 +24,7 @@ conform.setup {
   end,
   format_after_save = function(bufnr)
     if not slow_format_filetypes[vim.bo[bufnr].filetype] then return end
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
     return { lsp_fallback = true }
   end,
 }
@@ -58,6 +59,7 @@ lsp_zero.on_attach(function(client, bufnr)
   end
 
   -- Toggle buffer format keymaps
+  local diag = require "util.dialog"
   local setup_format_keymap
   setup_format_keymap = function()
     local function get_status(value)
@@ -72,10 +74,12 @@ lsp_zero.on_attach(function(client, bufnr)
     nnoremap("<leader>uf", function(args)
       vim.b.disable_autoformat = not vim.b.disable_autoformat
       setup_format_keymap()
+      diag.display_info("Format buffer: " .. get_status(vim.b.disable_autoformat))
     end, "Toggle format buffer (" .. get_status(vim.b.disable_autoformat) .. ")", opts)
     nnoremap("<leader>uF", function(args)
       vim.g.disable_autoformat = not vim.g.disable_autoformat
       setup_format_keymap()
+      diag.display_info("Global format buffer: " .. get_status(vim.b.disable_autoformat))
     end, "Toggle format global (" .. get_status(vim.g.disable_autoformat) .. ")", opts)
   end
   setup_format_keymap()
