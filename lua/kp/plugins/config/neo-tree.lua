@@ -14,6 +14,7 @@ require("neo-tree").setup {
   open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
   sort_case_insensitive = false, -- used when sorting files and directories in the tree
   sort_function = nil, -- use a custom function for sorting files and directories in the tree
+  enable_refresh_on_write = true, -- automatically refresh tree after a file is written
   -- sort_function = function (a,b)
   --       if a.type == b.type then
   --           return a.path > b.path
