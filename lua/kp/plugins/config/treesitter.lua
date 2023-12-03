@@ -26,7 +26,7 @@ local opts = {
   playground = {
     enable = true,
     disable = {},
-    updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
       toggle_query_editor = "o",
@@ -39,6 +39,19 @@ local opts = {
       update = "R",
       goto_node = "<cr>",
       show_help = "?",
+    },
+  },
+  refactor = {
+    navigation = {
+      enable = true,
+      -- Assign keymaps to false to disable them, e.g. `goto_definition = false`.
+      keymaps = {
+        goto_definition = false,
+        list_definitions = false,
+        list_definitions_toc = false,
+        goto_next_usage = "*",
+        goto_previous_usage = "#",
+      },
     },
   },
 }
