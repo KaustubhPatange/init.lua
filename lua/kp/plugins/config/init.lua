@@ -16,6 +16,9 @@ local function set_default_maps()
   nnoremap("-", "<cmd>split<cr>", "Horizontal Split")
   nnoremap("<leader>uw", function() vim.wo.wrap = not vim.wo.wrap end, "Toggle Wrap")
   nnoremap("<leader>n", "<cmd>enew<cr>", "New File")
+
+  vnoremap("J", ":m '>+1<CR>gv=gv", "Move selected lines up")
+  vnoremap("K", ":m '<-2<CR>gv=gv", "Move selected lines down")
 end
 
 vim.api.nvim_create_autocmd({ "User" }, {
