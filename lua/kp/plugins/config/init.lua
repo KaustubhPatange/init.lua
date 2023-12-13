@@ -19,6 +19,9 @@ local function set_default_maps()
 
   vnoremap("J", ":m '>+1<CR>gv=gv", "Move selected lines up")
   vnoremap("K", ":m '<-2<CR>gv=gv", "Move selected lines down")
+
+  nnoremap("+", "<cmd>vertical resize +5<cr>", "Increase window size")
+  nnoremap("-", "<cmd>vertical resize -5<cr>", "Decrease window size")
 end
 
 vim.api.nvim_create_autocmd({ "User" }, {
