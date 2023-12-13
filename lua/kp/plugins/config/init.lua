@@ -4,7 +4,7 @@ local sections = {
   l = { name = " LSP" },
   u = { name = " UI" },
   b = { name = "󰓩 Buffers" },
-  -- d = { name = " Debugger" },
+  d = { name = " Debugger" },
   g = { name = " Git" },
   -- S = { name = "󱂬 Session" },
   t = { name = " Terminal" },
