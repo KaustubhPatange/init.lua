@@ -34,9 +34,15 @@ nnoremap("<leader>do", function() require("dap").step_over() end, "Step Over")
 nnoremap("<leader>di", function() require("dap").step_into() end, "Step Into")
 nnoremap("<leader>de", function() require("dap").step_out() end, "Step Out")
 nnoremap("<Leader>db", function() require("dap").toggle_breakpoint() end, "Toggle breakpoint")
+nnoremap(
+  "<leader>dB",
+  function() require("dap").set_breakpoint(vim.fn.input "Breakpoint condition: ") end,
+  "Breakpoint Condition"
+)
 nnoremap("<Leader>dt", function() require("dap").terminate() end, "Terminate")
 nnoremap("<leader>dp", function() require("dap").pause() end, "Pause")
 nnoremap("<leader>du", function() require("dapui").toggle() end, "Toggle DAP UI ")
+nnoremap("<leader>dC", function() require("dap").run_to_cursor() end, "Run to Cursor")
 -- nnoremap("<Leader>dB", function() require("dap").set_breakpoint() end)
 -- nnoremap("<Leader>lp", function() require("dap").set_breakpoint(nil, nil, vim.fn.input "Log point message: ") end)
 -- nnoremap("<Leader>dr", function() require("dap").repl.open() end)
