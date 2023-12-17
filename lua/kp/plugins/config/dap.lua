@@ -1,10 +1,39 @@
+local adapter_names = { "python" }
 require("dapui").setup {
   library = { plugins = { "nvim-dap-ui" }, types = true },
 }
-require("mason-nvim-dap").setup {
-  ensure_installed = { "python" },
-  handlers = {},
+require("dap.ext.vscode").load_launchjs()
+
+local function set_adapter(adapter_name)
+  local dap = require "dap"
+  require("lazy").load { plugins = "nvim-dap" }
+  local adapters = require "mason-nvim-dap.mappings.adapters"
+  local filetypes = require "mason-nvim-dap.mappings.filetypes"
+  local configurations = require "mason-nvim-dap.mappings.configurations"
+
+  local config = {
+    name = adapter_name,
+    adapters = adapters[adapter_name],
+    configurations = configurations[adapter_name],
+    filetypes = filetypes[adapter_name],
+  }
+
+  dap.adapters[config.name] = config.adapters
+  local configuration = config.configurations or {}
+  if not vim.tbl_isempty(configuration) then
+    for _, filetype in ipairs(config.filetypes) do
+      dap.configurations[filetype] = vim.list_extend(dap.configurations[filetype] or {}, configuration)
+    end
+  end
+end
+
+local mason_dap = require "mason-nvim-dap"
+mason_dap.setup {
+  ensure_installed = adapter_names,
 }
+for _, adapter_name in ipairs(adapter_names) do
+  set_adapter(adapter_name)
+end
 
 local dap, dapui = require "dap", require "dapui"
 dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
