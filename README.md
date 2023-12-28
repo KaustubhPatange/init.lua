@@ -6,7 +6,7 @@ My personal neovim config.
 
 ## Requirements
 
-- [Neovim +0.9.5](https://github.com/neovim/neovim/tree/release-0.9) - Install from source
+- [Neovim +0.9.5](https://github.com/neovim/neovim/tree/release-0.9) - Run `install_nvim.sh`
 - [Node](https://nodejs.org/en/)
 - [Python](https://www.python.org/)
 - [lazygit](https://github.com/jesseduffield/lazygit) - git ui toggle `<leader>gg`
