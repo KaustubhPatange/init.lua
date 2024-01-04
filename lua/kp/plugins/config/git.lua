@@ -455,3 +455,16 @@ nnoremap("<leader>gf", function()
     require("diffview").file_history()
   end
 end, "Toggle Diffview Files")
+
+nnoremap("<leader>gh", function()
+  local bufnrs = vim.api.nvim_list_bufs()
+  local exists = false
+  for _, bufnr in ipairs(bufnrs) do
+    local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+    if filetype == "fugitiveblame" then
+      vim.api.nvim_buf_delete(bufnr, { force = true })
+      exists = true
+    end
+  end
+  if not exists then vim.cmd "Git blame" end
+end, "Toggle Git Blame")
