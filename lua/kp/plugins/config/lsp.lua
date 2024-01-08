@@ -32,6 +32,8 @@ conform.setup {
 -- Special keymaps on current buffer based on lsp client
 local lsp_zero = require "lsp-zero"
 lsp_zero.on_attach(function(client, bufnr)
+  if client.name == "copilot" then return end
+
   local opts = { buffer = bufnr, remap = false }
   nnoremap("gd", function() vim.lsp.buf.definition() end, "Go to definition", opts)
   nnoremap("K", function() vim.lsp.buf.hover() end, "Show definition", opts)
@@ -141,3 +143,12 @@ cmp.setup {
     ["<C-space>"] = cmp.mapping.complete(),
   },
 }
+
+-- Mappings
+
+nnoremap("<leader>ll", function()
+  local input = vim.fn.input "\n1. Restart LSP server\n2. Start LSP server\n3. Stop LSP server\n\nEnter option: "
+  if input == "1" then vim.cmd "LspRestart" end
+  if input == "2" then vim.cmd "LspStart" end
+  if input == "3" then vim.cmd "LspStop" end
+end, "LSP options")
