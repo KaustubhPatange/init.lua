@@ -56,4 +56,4 @@ require("trouble").setup {
 
 -- Mappings
 
-nnoremap("<leader>lD", function() require("trouble").toggle "workspace_diagnostics" end)
+nnoremap("<leader>lD", function() require("trouble").toggle "workspace_diagnostics" end, "Workspace Diagnostics")

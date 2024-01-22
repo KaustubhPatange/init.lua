@@ -85,7 +85,6 @@ nnoremap("<leader>fW", function()
     additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
   }
 end, "Find words under cursor")
-nnoremap("<leader>lD", function() require("telescope.builtin").diagnostics() end, "Search diagnostics")
 nnoremap("<leader>ls", function()
   local aerial_avail, _ = pcall(require, "aerial")
   if aerial_avail then
