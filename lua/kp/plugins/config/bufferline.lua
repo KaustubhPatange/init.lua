@@ -48,8 +48,7 @@ nnoremap("<leader>bD", function() require("mini.bufremove").delete(0, true) end,
 nnoremap("<leader>c", delete_buffer, "Delete Buffer (Force)")
 
 -- Mappings (bufferline)
-nnoremap("<leader>bp", "<Cmd>BufferLineTogglePin<CR>", "Toggle pin")
-nnoremap("<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers")
+nnoremap("<leader>p", "<Cmd>BufferLinePick<CR>", "Pick buffer")
 nnoremap("<leader>bc", "<Cmd>BufferLineCloseOthers<CR>", "Delete other buffers")
 nnoremap("<leader>br", "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right")
 nnoremap("<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left")
