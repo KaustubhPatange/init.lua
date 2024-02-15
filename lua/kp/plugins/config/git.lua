@@ -466,5 +466,5 @@ nnoremap("<leader>gh", function()
       exists = true
     end
   end
-  if not exists then vim.cmd "Git blame" end
+  if not exists then vim.cmd "Git blame -w -C -C -C" end
 end, "Toggle Git Blame")
