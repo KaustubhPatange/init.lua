@@ -45,6 +45,7 @@ lsp_zero.on_attach(function(client, bufnr)
   nnoremap("<leader>lr", function() vim.lsp.buf.rename() end, "Rename Symbol", opts)
   nnoremap("<C-p>", function() vim.lsp.buf.signature_help() end, "Signature help", opts)
   nnoremap("<leader>lf", function() conform.format { async = true, lsp_fallback = true } end, "Format buffer")
+  vnoremap("<leader>lf", function() conform.format { async = true, lsp_fallback = true } end, "Format selected lines")
 
   -- Organize imports
   local clients_commands = {
