@@ -3,7 +3,7 @@ local opts = {
   auto_install = false,
   incremental_selection = { enable = true },
   autotag = { enable = true },
-  ensure_installed = { "query", "lua", "javascript", "typescript", "tsx", "python" },
+  ensure_installed = { "query", "vimdoc", "lua", "javascript", "typescript", "tsx", "python" },
   context_commentstring = {
     enable = true,
     config = {
