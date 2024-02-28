@@ -40,7 +40,7 @@ require("lualine").setup {
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { "filename", { "macro-recording", fmt = show_macro_recording } },
+    lualine_c = { "filename", { "macro-recording", fmt = show_macro_recording }, "lsp_progress" },
     lualine_x = { "filetype", "lsp", list_formatters },
     lualine_y = { "progress" },
     lualine_z = { "location" },
