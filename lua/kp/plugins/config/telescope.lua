@@ -73,7 +73,7 @@ nnoremap(
 nnoremap("<leader>ft", function() require("telescope.builtin").colorscheme { enable_preview = true } end, "Find themes")
 nnoremap("<leader>fw", function()
   require("telescope.builtin").live_grep {
-    file_ignore_patterns = { "node_modules", ".git", "env" },
+    file_ignore_patterns = { "node_modules", ".git", "env", ".npz", ".png", ".jpg", ".webp" },
     additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
   }
 end, "Find words")
@@ -81,7 +81,7 @@ nnoremap("<leader>fW", function()
   local cword = vim.fn.expand "<cword>"
   require("telescope.builtin").live_grep {
     default_text = cword,
-    file_ignore_patterns = { "node_modules", ".git", "env" },
+    file_ignore_patterns = { "node_modules", ".git", "env", ".npz", ".png", ".jpg", ".webp" },
     additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
   }
 end, "Find words under cursor")
