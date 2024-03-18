@@ -86,22 +86,6 @@ lsp_zero.on_attach(function(client, bufnr)
     end, "Toggle format global (" .. get_status(vim.g.disable_autoformat) .. ")", opts)
   end
   setup_format_keymap()
-
-  -- Autocmd for document hightlight and clear references
-  if client.server_capabilities.documentHighlightProvider then
-    local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-    vim.api.nvim_clear_autocmds { buffer = bufnr, group = group }
-    vim.api.nvim_create_autocmd("CursorHold", {
-      callback = vim.lsp.buf.document_highlight,
-      buffer = bufnr,
-      group = group,
-    })
-    vim.api.nvim_create_autocmd("CursorMoved", {
-      callback = vim.lsp.buf.clear_references,
-      buffer = bufnr,
-      group = group,
-    })
-  end
 end)
 
 require("mason").setup {}
@@ -114,7 +98,7 @@ require("mason-lspconfig").setup {
         settings = {
           python = {
             analysis = {
-              diagnosticMode = "workspace",
+              -- diagnosticMode = "workspace",
             },
           },
         },
