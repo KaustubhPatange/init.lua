@@ -1,3 +1,4 @@
+
 # My init.lua
 
 My personal neovim config.
@@ -6,9 +7,11 @@ My personal neovim config.
 
 ## Requirements
 
-- [Neovim +0.9.5](https://github.com/neovim/neovim/tree/release-0.9) - Run `install_nvim.sh`
+- [Neovim >=0.9.5 + config](https://github.com/neovim/neovim/tree/release-0.9)
+	- `curl https://raw.githubusercontent.com/KaustubhPatange/init.lua/master/install_nvim.sh | sh`
 - [Node >=18](https://nodejs.org/en/)
 - [Python](https://www.python.org/)
 - [lazygit](https://github.com/jesseduffield/lazygit) - git ui toggle `<leader>gg`
 - [gnu-sed](https://www.gnu.org/software/sed/) - spectre
 - [ripgrep](https://github.com/BurntSushi/ripgrep) - telescope
+
