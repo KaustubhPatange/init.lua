@@ -7,9 +7,11 @@ My personal neovim config.
 
 ## Requirements
 
+
 - [Neovim >=0.9.5 + config](https://github.com/neovim/neovim/tree/release-0.9)
-	- `curl https://raw.githubusercontent.com/KaustubhPatange/init.lua/master/install_nvim.sh | sh`
+	- `curl https://raw.githubusercontent.com/KaustubhPatange/init.lua/master/scripts/install_nvim.sh | sh`
 - [Node >=18](https://nodejs.org/en/)
+	- `curl https://raw.githubusercontent.com/KaustubhPatange/init.lua/master/scripts/install_node.sh | sh`
 - [Python](https://www.python.org/)
 - [lazygit](https://github.com/jesseduffield/lazygit) - git ui toggle `<leader>gg`
 - [gnu-sed](https://www.gnu.org/software/sed/) - spectre

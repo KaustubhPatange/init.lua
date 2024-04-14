@@ -22,3 +22,6 @@ if [ -e ~/.config/nvim ]; then
 fi
 
 git clone https://github.com/KaustubhPatange/init.lua ~/.config/nvim
+
+# Install ripgrep
+$append_sudo apt install ripgrep
