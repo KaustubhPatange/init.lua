@@ -8,7 +8,6 @@ vim.opt.termguicolors = true
 
 -- Hide command line
 vim.o.cmdheight = 0
-
 -- Set maxium height of popup menu
 vim.o.pumheight = 10
 
@@ -29,15 +28,12 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv "HOME" .. "/.vim/undodir"
 vim.opt.undofile = true
 
-vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 vim.opt.isfname:append "@-@"
-
-vim.opt.updatetime = 50
 
 vim.opt.ignorecase = true
 vim.opt.cursorline = true
@@ -58,3 +54,11 @@ vim.keymap.set({ "n", "v" }, "<leader>Y", [["+Y]])
 -- Indent/Unindent line
 vim.keymap.set("v", "<S-Tab>", "<gv")
 vim.keymap.set("v", "<Tab>", ">gv")
+
+-- Search settings
+vim.opt.hlsearch = true
+vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+  pattern = "*",
+  callback = function() vim.api.nvim_set_hl(0, "Search", { bg = "LightGreen" }) end,
+})
+vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })

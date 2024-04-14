@@ -41,7 +41,16 @@ require("lualine").setup {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics" },
     lualine_c = { "filename", { "macro-recording", fmt = show_macro_recording }, "lsp_progress" },
-    lualine_x = { "filetype", "lsp", list_formatters },
+    lualine_x = {
+      {
+        "searchcount",
+        maxcount = 999,
+        timeout = 500,
+      },
+      "filetype",
+      "lsp",
+      list_formatters,
+    },
     lualine_y = { "progress" },
     lualine_z = { "location" },
   },
