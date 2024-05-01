@@ -1,6 +1,7 @@
 -- Add/Edit the server names
 local lsp_servers = { "tsserver", "rust_analyzer", "lua_ls", "pyright" }
 local formatters = {
+  go = { "gofmt", "goimports" },
   lua = { "stylua" },
   python = { "isort", "black" },
   javascript = { "prettier" },
@@ -107,6 +108,19 @@ require("mason-lspconfig").setup {
     lua_ls = function()
       local lua_opts = lsp_zero.nvim_lua_ls()
       require("lspconfig").lua_ls.setup(lua_opts)
+    end,
+    gopls = function()
+      require("lspconfig").gopls.setup {
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+          },
+        },
+      }
     end,
   },
 }
