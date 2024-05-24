@@ -1,6 +1,7 @@
 local telescope = require "telescope"
 local actions = require "telescope.actions"
 local icons = require "util.icons"
+local lga_actions = require "telescope-live-grep-args.actions"
 
 telescope.setup {
   defaults = {
@@ -43,9 +44,28 @@ telescope.setup {
       },
       n = { ["q"] = actions.close },
     },
+    extensions = {
+      live_grep_args = {
+        auto_quoting = true, -- enable/disable auto-quoting
+        -- define mappings, e.g.
+        mappings = { -- extend mappings
+          i = {
+            ["<C-k>"] = lga_actions.quote_prompt(),
+            ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
+            -- freeze the current list and start a fuzzy search in the frozen list
+            ["<C-space>"] = actions.to_fuzzy_refine,
+          },
+        },
+        -- ... also accepts theme settings, for example:
+        -- theme = "dropdown", -- use dropdown theme
+        -- theme = { }, -- use own theme spec
+        -- layout_config = { mirror=true }, -- mirror preview pane
+      },
+    },
   },
 }
 telescope.load_extension "fzf"
+telescope.load_extension "live_grep_args"
 
 -- Mappings
 nnoremap("<leader>f<CR>", function() require("telescope.builtin").resume() end, "Resume previous search")
@@ -72,17 +92,17 @@ nnoremap(
 )
 nnoremap("<leader>ft", function() require("telescope.builtin").colorscheme { enable_preview = true } end, "Find themes")
 nnoremap("<leader>fw", function()
-  require("telescope.builtin").live_grep {
+  require("telescope").extensions.live_grep_args.live_grep_args {
     file_ignore_patterns = { "node_modules", ".git", "env", ".npz", ".png", ".jpg", ".webp" },
-    additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+    -- additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
   }
 end, "Find words")
 nnoremap("<leader>fW", function()
   local cword = vim.fn.expand "<cword>"
-  require("telescope.builtin").live_grep {
+  require("telescope").extensions.live_grep_args.live_grep_args {
     default_text = cword,
     file_ignore_patterns = { "node_modules", ".git", "env", ".npz", ".png", ".jpg", ".webp" },
-    additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+    -- additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
   }
 end, "Find words under cursor")
 nnoremap("<leader>ls", function()
