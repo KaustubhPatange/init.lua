@@ -1,4 +1,2 @@
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-source ~/.bashrc
-nvm install 18
-nvm use 18
+curl -s https://deb.nodesource.com/setup_18.x | sudo bash
+sudo apt install nodejs -y
