@@ -13,6 +13,10 @@ local opts = {
         .. (diag.warning and icons.DiagnosticWarn .. diag.warning or "")
       return vim.trim(ret)
     end,
+    custom_filter = function(buf_number, _)
+      -- Filter out Quickfix list buffer
+      if vim.bo[buf_number].filetype ~= "qf" then return true end
+    end,
     offsets = {
       {
         filetype = "neo-tree",
