@@ -62,3 +62,4 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
   callback = function() vim.api.nvim_set_hl(0, "Search", { bg = "LightGreen" }) end,
 })
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
+vim.keymap.set({ "n" }, "<leader>bq", "<cmd>cclose<cr>", { desc = "Close quickfix" })
