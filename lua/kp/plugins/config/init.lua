@@ -14,7 +14,25 @@ local function set_default_maps()
   --Default mappings
   nnoremap("|", "<cmd>vsplit<cr>", "Vertical Split")
   nnoremap("-", "<cmd>split<cr>", "Horizontal Split")
-  nnoremap("<leader>uw", function() vim.wo.wrap = not vim.wo.wrap end, "Toggle Wrap")
+
+  local toggle_wrap
+  toggle_wrap = function()
+    local get_status = function(value)
+      value = not value
+      if value then
+        return "disabled"
+      else
+        return "enabled"
+      end
+    end
+
+    nnoremap("<leader>uw", function()
+      vim.wo.wrap = not vim.wo.wrap
+      toggle_wrap()
+    end, "Toggle Wrap (" .. get_status(vim.wo.wrap) .. ")")
+  end
+  toggle_wrap()
+
   nnoremap("<leader>n", "<cmd>enew<cr>", "New File")
 
   vnoremap("J", ":m '>+1<CR>gv=gv", "Move selected lines up")
