@@ -44,7 +44,8 @@ vim.o.updatetime = 250
 -- Highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   pattern = "*",
-  command = "lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=100} ",
+  command =
+  "lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=100} ",
 })
 
 -- Yank to system clipboard
@@ -63,3 +64,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 })
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 vim.keymap.set({ "n" }, "<leader>bq", "<cmd>cclose<cr>", { desc = "Close quickfix" })
+
+-- Disable page up & page down keys
+vim.keymap.set({ "i", "n", "v" }, "<PageUp>", "<nop>")
+vim.keymap.set({ "i", "n", "v" }, "<PageDown>", "<nop>")
