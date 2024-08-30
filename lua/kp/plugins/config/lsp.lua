@@ -178,3 +178,39 @@ nnoremap("<leader>ll", function()
   if input == "2" then vim.cmd "LspStart" end
   if input == "3" then vim.cmd "LspStop" end
 end, "LSP options")
+
+local set_diagnostic_severity
+set_diagnostic_severity = function()
+  nnoremap("<leader>uD", function()
+    local SEVERITY = vim.diagnostic.severity
+    local configure = function(min, max, description)
+      vim.diagnostic.severity_level = description
+
+      local opts = {}
+      if min == nil and max == nil then
+        vim.diagnostic.config({ virtual_text = false, signs = false, underline = false })
+      else
+        if min ~= nil then opts.min = min end
+        if max ~= nil then opts.max = max end
+
+        local severity = { severity = opts }
+
+        vim.diagnostic.config({ virtual_text = severity, signs = severity, underline = severity })
+      end
+      set_diagnostic_severity()
+    end
+
+    local current_selection = vim.diagnostic.severity_level or "all"
+
+    local input = vim.fn.input(
+      "\nCurrent: " ..
+      current_selection ..
+      "\n\n1. All (error, warning, info, hint)\n2. Error (error)\n3. Warning (warn)\n4. Info (info)\nd. Disable\n\nEnter option: ")
+    if input == "1" then configure(SEVERITY.HINT, SEVERITY.ERROR, "all") end
+    if input == "2" then configure(SEVERITY.ERROR, SEVERITY.ERROR, "error") end
+    if input == "3" then configure(SEVERITY.WARN, SEVERITY.WARN, "warn") end
+    if input == "4" then configure(SEVERITY.INFO, SEVERITY.INFO, "info") end
+    if input == "d" then configure(nil, nil, "disabled") end
+  end, "Set Diagnostics Severity (" .. (vim.diagnostic.severity_level or "all") .. ")")
+end
+set_diagnostic_severity()
