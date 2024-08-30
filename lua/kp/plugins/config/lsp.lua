@@ -1,5 +1,5 @@
 -- Add/Edit the server names
-local lsp_servers = { "tsserver", "rust_analyzer", "lua_ls", "pyright" }
+local lsp_servers = { "tsserver", "eslint@4.8.0", "rust_analyzer", "lua_ls", "pyright" }
 local formatters = {
   go = { "gofmt", "goimports" },
   lua = { "stylua" },
@@ -122,6 +122,22 @@ require("mason-lspconfig").setup {
         },
       }
     end,
+    eslint = function()
+      require("lspconfig").eslint.setup {
+        settings = {
+          codeAction = {
+            showDocumentation = {
+              enable = false
+            }
+          },
+          codeActionOnSave = {
+            enable = false
+          },
+          format = false,
+          quiet = false,
+        }
+      }
+    end
   },
 }
 
