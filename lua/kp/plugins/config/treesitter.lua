@@ -2,7 +2,7 @@ local opts = {
   highlight = { enable = true },
   auto_install = false,
   incremental_selection = { enable = true },
-  autotag = { enable = true },
+  autotag = { enable = true, enable_close_on_slash = false },
   ensure_installed = { "query", "vimdoc", "lua", "javascript", "typescript", "tsx", "python" },
   context_commentstring = {
     enable = true,
@@ -26,7 +26,7 @@ local opts = {
   playground = {
     enable = true,
     disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
       toggle_query_editor = "o",
