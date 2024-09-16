@@ -1,4 +1,4 @@
-local adapter_names = { "python" }
+local adapter_names = { "python", "node2" }
 require("dapui").setup {
   library = { plugins = { "nvim-dap-ui" }, types = true },
 }
@@ -6,7 +6,7 @@ require("dap.ext.vscode").load_launchjs()
 
 local function set_adapter(adapter_name)
   local dap = require "dap"
-  require("lazy").load { plugins = "nvim-dap" }
+  -- require("lazy").load { plugins = "nvim-dap" }
   local adapters = require "mason-nvim-dap.mappings.adapters"
   local filetypes = require "mason-nvim-dap.mappings.filetypes"
   local configurations = require "mason-nvim-dap.mappings.configurations"
@@ -46,13 +46,14 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   desc = "prevent colorscheme clears self-defined DAP icon colors.",
   callback = function()
     vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939" })
+    vim.api.nvim_set_hl(0, "DapBreakpointCondition", { ctermbg = 0, fg = "#fdc12a" })
     vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef" })
     vim.api.nvim_set_hl(0, "DapStopped", { ctermbg = 0, fg = "#98c379" })
   end,
 })
 
-vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpoint" })
-vim.fn.sign_define("DapBreakpointCondition", { text = "ﳁ", texthl = "DapBreakpoint" })
+vim.fn.sign_define("DapBreakpoint", { text = "⬤", texthl = "DapBreakpoint" })
+vim.fn.sign_define("DapBreakpointCondition", { text = "⬤", texthl = "DapBreakpointCondition" })
 vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpoint" })
 vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DapLogPoint" })
 vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped" })
