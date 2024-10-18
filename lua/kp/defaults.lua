@@ -43,6 +43,9 @@ vim.o.updatetime = 250
 
 vim.o.sessionoptions = "blank,buffers,curdir"
 
+-- Load default internal vim plugins
+vim.cmd("packadd cfilter")
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   pattern = "*",

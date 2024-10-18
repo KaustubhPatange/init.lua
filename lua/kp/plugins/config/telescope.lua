@@ -97,12 +97,6 @@ nnoremap("<leader>fm", function() require("telescope.builtin").man_pages() end, 
 nnoremap("<leader>fo", function() require("telescope.builtin").oldfiles() end, "Find history")
 nnoremap("<leader>fs", function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end, "Find Symbols")
 -- maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Find registers" }
-nnoremap("<leader>fr", "<cmd>lua require('spectre').open()<cr>", "Search and replace")
-nnoremap(
-  "<leader>fR",
-  "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
-  "Search and replace current word"
-)
 nnoremap("<leader>ft", function() require("telescope.builtin").colorscheme { enable_preview = true } end, "Find themes")
 nnoremap("<leader>fw", function()
   require("telescope").extensions.live_grep_args.live_grep_args {

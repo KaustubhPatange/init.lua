@@ -14,6 +14,5 @@ My personal neovim config.
 	- `curl https://raw.githubusercontent.com/KaustubhPatange/init.lua/master/scripts/install_node.sh | sh`
 - [Python](https://www.python.org/)
 - [lazygit](https://github.com/jesseduffield/lazygit) - git ui toggle `<leader>gg`
-- [gnu-sed](https://www.gnu.org/software/sed/) - spectre
 - [ripgrep](https://github.com/BurntSushi/ripgrep) - telescope
 
