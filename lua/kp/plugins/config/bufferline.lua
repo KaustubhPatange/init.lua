@@ -10,7 +10,7 @@ local opts = {
     diagnostics_indicator = function(_, _, diag)
       local icons = require "util.icons"
       local ret = (diag.error and icons.DiagnosticError .. diag.error .. " " or "")
-        .. (diag.warning and icons.DiagnosticWarn .. diag.warning or "")
+          .. (diag.warning and icons.DiagnosticWarn .. diag.warning or "")
       return vim.trim(ret)
     end,
     custom_filter = function(buf_number, _)
@@ -42,7 +42,7 @@ local function delete_buffer()
       bd(0, true)
     end
   else
-    bd(0)
+    bd(0, true)
   end
 end
 
