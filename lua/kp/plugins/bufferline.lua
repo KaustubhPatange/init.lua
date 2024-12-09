@@ -6,7 +6,4 @@ return {
       require("kp.plugins.config.bufferline")
     end,
   },
-  {
-    "echasnovski/mini.bufremove",
-  },
 }
