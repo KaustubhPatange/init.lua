@@ -6,4 +6,8 @@ return {
       require("kp.plugins.config.bufferline")
     end,
   },
+  {
+    "famiu/bufdelete.nvim",
+    lazy = false,
+  }
 }

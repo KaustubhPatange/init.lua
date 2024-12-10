@@ -1,6 +1,7 @@
 local function bdelete(bufnr, force)
   force = force or false
-  vim.api.nvim_buf_delete(bufnr, { force = force })
+  local bd = require("bufdelete")
+  bd.bufdelete(bufnr, force)
 end
 
 local function delete_buffer()
@@ -77,15 +78,19 @@ function RemoveBufferFromSavedView()
   SavedBufView[buf] = nil
 end
 
-vim.api.nvim_exec([[
-  augroup AutoWinView
-    autocmd!
-    autocmd BufLeave * lua AutoSaveWinView()
-    autocmd BufEnter * lua AutoRestoreWinView()
-    autocmd BufDelete * lua RemoveBufferFromSavedView()
-augroup END
-]], false)
-
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",   -- Adjust based on your lazy loading configuration
+  callback = function()
+    vim.api.nvim_exec([[
+          augroup AutoWinView
+            autocmd!
+            autocmd BufLeave * lua AutoSaveWinView()
+            autocmd BufEnter * lua AutoRestoreWinView()
+            autocmd BDeletePost * lua RemoveBufferFromSavedView()
+          augroup END
+        ]], false)
+  end,
+})
 
 -- Mappings
 nnoremap("<leader>bd", delete_buffer, "Delete Buffer")
