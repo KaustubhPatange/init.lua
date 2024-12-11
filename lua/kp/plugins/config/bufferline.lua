@@ -20,11 +20,6 @@ end
 
 local opts = {
   options = {
-    -- stylua: ignore
-    close_command = function(n) bdelete(n) end,
-    -- stylua: ignore
-    right_mouse_command = function(n) bdelete(n) end,
-
     -- diagnostics = "nvim_lsp",
     always_show_bufferline = true,
     diagnostics_indicator = function(_, _, diag)
@@ -79,7 +74,7 @@ function RemoveBufferFromSavedView()
 end
 
 vim.api.nvim_create_autocmd("User", {
-  pattern = "VeryLazy",   -- Adjust based on your lazy loading configuration
+  pattern = "VeryLazy", -- Adjust based on your lazy loading configuration
   callback = function()
     vim.api.nvim_exec([[
           augroup AutoWinView
