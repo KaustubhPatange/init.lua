@@ -73,3 +73,42 @@ vim.keymap.set({ "n" }, "<leader>bq", "<cmd>cclose<cr>", { desc = "Close quickfi
 -- Disable page up & page down keys
 vim.keymap.set({ "i", "n", "v" }, "<PageUp>", "<nop>")
 vim.keymap.set({ "i", "n", "v" }, "<PageDown>", "<nop>")
+
+-- Highlight current cursor line command
+local cursor_highlight = function()
+  local timer = vim.loop.new_timer()
+
+  vim.cmd('highlight CursorHighlight cterm=bold ctermbg=yellow ctermfg=black guibg=yellow guifg=black')
+
+  local diagnostics_enabled = vim.diagnostic.is_disabled() == false
+  if diagnostics_enabled then
+    vim.diagnostic.disable(0)
+  end
+
+  vim.wo.cursorline = true
+  vim.wo.cursorcolumn = true
+  vim.wo.winhighlight = "CursorLine:CursorHighlight,CursorColumn:CursorHighlight"
+
+  local cnt, blink_times = 0, 8
+
+  timer:start(0, 100, vim.schedule_wrap(function()
+    vim.wo.cursorline = not vim.wo.cursorline
+    vim.wo.cursorcolumn = not vim.wo.cursorcolumn
+
+    cnt = cnt + 1
+    if cnt == blink_times then
+      timer:stop()
+      timer:close()
+
+      if diagnostics_enabled then
+        vim.diagnostic.enable(0)
+      end
+
+      vim.wo.winhighlight = ""
+      vim.wo.cursorline = false
+      vim.wo.cursorcolumn = false
+    end
+  end))
+end
+
+vim.api.nvim_create_user_command('CursorPosition', cursor_highlight, {})
