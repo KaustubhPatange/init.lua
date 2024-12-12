@@ -84,6 +84,7 @@ telescope.load_extension "live_grep_args"
 nnoremap("<leader>f<CR>", function() require("telescope.builtin").resume() end, "Resume previous search")
 nnoremap("<leader>f'", function() require("telescope.builtin").marks() end, "Find marks")
 nnoremap("<leader>fb", function() require("telescope.builtin").buffers() end, "Find buffers")
+nnoremap("<leader>fq", function() require("telescope.builtin").quickfixhistory() end, "Find quickfix")
 nnoremap("<leader>fC", function() require("telescope.builtin").commands() end, "Find commands")
 nnoremap("<leader>ff", function() require("telescope.builtin").find_files() end, "Find files")
 nnoremap(
