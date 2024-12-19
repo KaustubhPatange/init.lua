@@ -112,3 +112,12 @@ local cursor_highlight = function()
 end
 
 vim.api.nvim_create_user_command('CursorPosition', cursor_highlight, {})
+
+-- Command to create file in an not exist dir
+vim.api.nvim_create_user_command("WForce", function()
+  local file_dir = vim.fn.expand("%:p:h")
+  if vim.fn.isdirectory(file_dir) == 0 then
+    vim.fn.mkdir(file_dir, "p")
+  end
+  vim.cmd("write")
+end, { desc = "Force save by creating missing directories" })
