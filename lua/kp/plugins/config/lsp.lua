@@ -92,8 +92,19 @@ end)
 require("mason").setup {}
 require("mason-lspconfig").setup {
   ensure_installed = lsp_servers,
+  automatic_installation = true,
   handlers = {
     lsp_zero.default_setup,
+    tsserver = function()
+      require("lspconfig").tsserver.setup {
+        hostInfo = "neovim",
+        preferences = {
+          includeCompletionsForModuleExports = true,
+          includeCompletionsForImportStatements = true,
+          importModuleSpecifierPreference = "relative",
+        },
+      }
+    end,
     pyright = function()
       require("lspconfig").pyright.setup {
         settings = {
