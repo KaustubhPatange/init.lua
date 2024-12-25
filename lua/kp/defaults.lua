@@ -30,8 +30,6 @@ vim.opt.undofile = true
 
 vim.opt.incsearch = true
 
-vim.opt.termguicolors = true
-
 vim.opt.scrolloff = 8
 vim.opt.isfname:append "@-@"
 
@@ -41,7 +39,7 @@ vim.opt.infercase = true
 
 vim.o.updatetime = 250
 
-vim.o.sessionoptions = "blank,buffers,curdir"
+vim.o.sessionoptions = "blank,buffers"
 
 -- Load default internal vim plugins
 vim.cmd("packadd cfilter")
