@@ -303,7 +303,22 @@ require("neo-tree").setup {
   },
 }
 
-vim.cmd [[nnoremap \ :Neotree reveal<cr>]]
-
 -- Mappings
+local function toggle_or_reveal_neotree()
+  local current_buf = vim.api.nvim_get_current_buf()
+  if vim.api.nvim_buf_get_name(current_buf):match("neo%-tree") then
+    vim.cmd("Neotree toggle")
+    return
+  end
+  local buf_list = vim.api.nvim_list_bufs()
+  for _, buf in ipairs(buf_list) do
+    if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf):match("neo%-tree") then
+      vim.cmd("Neotree reveal")
+      return
+    end
+  end
+  vim.cmd("Neotree toggle")
+end
+
+nnoremap('\\', toggle_or_reveal_neotree, "Toggle Neotree")
 nnoremap("<leader>e", "<cmd>Neotree toggle<cr>", "Toggle Neotree")
