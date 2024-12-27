@@ -1,6 +1,12 @@
 return {
   "kevinhwang91/nvim-bqf",
   lazy = false,
+  dependencies = {
+    {
+      'junegunn/fzf',
+      build = "./install --bin"
+    },
+  },
   config = function()
     vim.cmd [[
         hi BqfPreviewBorder guifg=#3e8e2d ctermfg=71
@@ -89,8 +95,4 @@ return {
       },
     }
   end,
-  {
-    'junegunn/fzf',
-    build = "./install --bin"
-  },
 }
