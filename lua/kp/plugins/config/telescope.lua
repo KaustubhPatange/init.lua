@@ -101,7 +101,7 @@ nnoremap("<leader>fs", function() require("telescope.builtin").lsp_dynamic_works
 nnoremap("<leader>ft", function() require("telescope.builtin").colorscheme { enable_preview = true } end, "Find themes")
 nnoremap("<leader>fw", function()
   require("telescope").extensions.live_grep_args.live_grep_args {
-    file_ignore_patterns = { "%node_modules/", "%.git/", "%env/", "%.aider/", ".aider.chat", ".npz", ".png", ".jpg", ".webp" },
+    file_ignore_patterns = { "%node_modules/", "%.git/", "%env/", "%.aider/", "%.cache/", ".aider.chat", ".npz", ".png", ".jpg", ".webp" },
     -- additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
   }
 end, "Find words")
@@ -109,7 +109,7 @@ nnoremap("<leader>fW", function()
   local cword = vim.fn.expand "<cword>"
   require("telescope").extensions.live_grep_args.live_grep_args {
     default_text = cword,
-    file_ignore_patterns = { "%node_modules/", "%.git/", "%env/", "%.aider/", ".aider.chat", ".npz", ".png", ".jpg", ".webp" },
+    file_ignore_patterns = { "%node_modules/", "%.git/", "%env/", "%.aider/", "%.cache/", ".aider.chat", ".npz", ".png", ".jpg", ".webp" },
     -- additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
   }
 end, "Find words under cursor")
