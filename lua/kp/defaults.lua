@@ -72,6 +72,12 @@ vim.keymap.set({ "n" }, "<leader>bq", "<cmd>cclose<cr>", { desc = "Close quickfi
 vim.keymap.set({ "i", "n", "v" }, "<PageUp>", "<nop>")
 vim.keymap.set({ "i", "n", "v" }, "<PageDown>", "<nop>")
 
+-- Move between windows
+vim.keymap.set({ "n" }, "<C-h>", "<C-w>h", { silent = true })
+vim.keymap.set({ "n" }, "<C-j>", "<C-w>j", { silent = true })
+vim.keymap.set({ "n" }, "<C-k>", "<C-w>k", { silent = true })
+vim.keymap.set({ "n" }, "<C-l>", "<C-w>l", { silent = true })
+
 -- Highlight current cursor line command
 local cursor_highlight = function()
   local timer = vim.loop.new_timer()
