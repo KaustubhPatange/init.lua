@@ -87,6 +87,13 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
+local function print_buffer_name()
+  local bufnr = vim.api.nvim_get_current_buf()
+  if vim.bo[bufnr].buftype == "" then
+    vim.notify(vim.api.nvim_buf_get_name(bufnr), vim.log.levels.WARN)
+  end
+end
+
 -- Mappings
 nnoremap("<leader>bd", delete_buffer, "Delete Buffer")
 nnoremap("<leader>bD", "<cmd>bdelete<CR>", "Delete Buffer (Force)")
@@ -95,5 +102,6 @@ nnoremap("<leader>p", "<Cmd>BufferLinePick<CR>", "Pick buffer")
 nnoremap("<leader>bc", "<Cmd>BufferLineCloseOthers<CR>", "Delete other buffers")
 nnoremap("<leader>br", "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right")
 nnoremap("<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left")
+nnoremap("<leader>bp", print_buffer_name, "Print buffer name")
 nnoremap("{", "<cmd>BufferLineCyclePrev<cr>", "Prev buffer")
 nnoremap("}", "<cmd>BufferLineCycleNext<cr>", "Next buffer")
