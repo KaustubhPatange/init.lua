@@ -4,11 +4,13 @@ require("dapui").setup {
 }
 require("dap.ext.vscode").load_launchjs()
 
+local filetypes = require "mason-nvim-dap.mappings.filetypes"
+filetypes.node = filetypes.node2
+
 local function set_adapter(adapter_name)
   local dap = require "dap"
   -- require("lazy").load { plugins = "nvim-dap" }
   local adapters = require "mason-nvim-dap.mappings.adapters"
-  local filetypes = require "mason-nvim-dap.mappings.filetypes"
   local configurations = require "mason-nvim-dap.mappings.configurations"
 
   local config = {
@@ -19,12 +21,46 @@ local function set_adapter(adapter_name)
   }
 
   dap.adapters[config.name] = config.adapters
+  -- For now, let's use same adapter for node
+  if config.name == "node2" then
+    dap.adapters["node"] = config.adapters
+  end
   local configuration = config.configurations or {}
   if not vim.tbl_isempty(configuration) then
     for _, filetype in ipairs(config.filetypes) do
       dap.configurations[filetype] = vim.list_extend(dap.configurations[filetype] or {}, configuration)
     end
   end
+end
+
+local function dap_load_and_continue()
+  require("dap.ext.vscode").load_launchjs()
+
+  local dap = require "dap"
+  local function load_for_node_filetype(type)
+    if not filetypes[type] then
+      return
+    end
+    for _, filetype in ipairs(filetypes[type]) do
+      local dap_configs = dap.configurations[type] or {}
+      for _, dap_config in ipairs(dap_configs) do
+        -- Remove duplicate config if exists
+        for i, config in ipairs(dap.configurations[filetype]) do
+          if config.name == dap_config.name then
+            table.remove(dap.configurations[filetype], i)
+          end
+        end
+        -- Insert new config
+        table.insert(dap.configurations[filetype], dap_config)
+      end
+    end
+  end
+  if dap.configurations.node or dap.configurations.node2 then
+    load_for_node_filetype("node")
+    load_for_node_filetype("node2")
+  end
+
+  require("dap").continue()
 end
 
 local mason_dap = require "mason-nvim-dap"
@@ -59,7 +95,7 @@ vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DapLogPoint" })
 vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped" })
 
 -- Mappings
-nnoremap("<leader>dc", function() require("dap").continue() end, "Launch/Continue")
+nnoremap("<leader>dc", dap_load_and_continue, "Launch/Continue")
 nnoremap("<leader>do", function() require("dap").step_over() end, "Step Over")
 nnoremap("<leader>di", function() require("dap").step_into() end, "Step Into")
 nnoremap("<leader>de", function() require("dap").step_out() end, "Step Out")
