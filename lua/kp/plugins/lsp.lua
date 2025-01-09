@@ -11,6 +11,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     "onsails/lspkind.nvim",
     "stevearc/conform.nvim",
+    "mfussenegger/nvim-jdtls",
   },
   config = function() require "kp.plugins.config.lsp" end,
 }

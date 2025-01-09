@@ -89,12 +89,19 @@ lsp_zero.on_attach(function(client, bufnr)
   setup_format_keymap()
 end)
 
+
+-- Configure LSP settings
 require("mason").setup {}
 require("mason-lspconfig").setup {
   ensure_installed = lsp_servers,
   automatic_installation = true,
   handlers = {
-    lsp_zero.default_setup,
+    function(server_name)
+      local java_ls = require('kp.plugins.config.lsp.java')
+      if java_ls.should_setup(server_name) then
+        java_ls.setup()
+      end
+    end,
     tsserver = function()
       require("lspconfig").tsserver.setup {
         hostInfo = "neovim",
@@ -148,7 +155,7 @@ require("mason-lspconfig").setup {
           quiet = false,
         }
       }
-    end
+    end,
   },
 }
 
