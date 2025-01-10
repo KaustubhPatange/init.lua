@@ -102,6 +102,12 @@ nnoremap("<leader>p", "<Cmd>BufferLinePick<CR>", "Pick buffer")
 nnoremap("<leader>bc", "<Cmd>BufferLineCloseOthers<CR>", "Delete other buffers")
 nnoremap("<leader>br", "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right")
 nnoremap("<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left")
-nnoremap("<leader>bp", print_buffer_name, "Print buffer name")
+nnoremap("<leader>bp", "<Cmd>BufferLineTogglePin<CR>", "Print buffer name")
+nnoremap("<leader>bn", print_buffer_name, "Print buffer name")
+nnoremap("<leader>by", function()
+  if vim.bo.buftype == "" then
+    require("util.file-copy").open_file_copy_selector()
+  end
+end, "Copy Selector")
 nnoremap("{", "<cmd>BufferLineCyclePrev<cr>", "Prev buffer")
 nnoremap("}", "<cmd>BufferLineCycleNext<cr>", "Next buffer")
