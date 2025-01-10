@@ -13,7 +13,7 @@ local sections = {
 local function set_default_maps()
   --Default mappings
   nnoremap("|", "<cmd>vsplit<cr>", "Vertical Split")
-  nnoremap("-", "<cmd>split<cr>", "Horizontal Split")
+  nnoremap("_", "<cmd>split<cr>", "Horizontal Split")
 
   local toggle_wrap
   toggle_wrap = function()
