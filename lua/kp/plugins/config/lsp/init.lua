@@ -97,20 +97,15 @@ require("mason-lspconfig").setup {
   automatic_installation = true,
   handlers = {
     function(server_name)
-      local java_ls = require('kp.plugins.config.lsp.java')
-      if java_ls.should_setup(server_name) then
-        java_ls.setup()
+      local jdtls = require('kp.plugins.config.lsp.jdtls')
+      if jdtls.should_setup(server_name) then
+        jdtls.setup()
       end
-    end,
-    tsserver = function()
-      require("lspconfig").tsserver.setup {
-        hostInfo = "neovim",
-        preferences = {
-          includeCompletionsForModuleExports = true,
-          includeCompletionsForImportStatements = true,
-          importModuleSpecifierPreference = "relative",
-        },
-      }
+
+      local ts_tools = require("kp.plugins.config.lsp.ts-tools")
+      if ts_tools.should_setup(server_name) then
+        ts_tools.setup()
+      end
     end,
     pyright = function()
       require("lspconfig").pyright.setup {
