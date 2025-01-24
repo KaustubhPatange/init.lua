@@ -6,6 +6,13 @@ end
 
 function M.setup()
   require("typescript-tools").setup({
+    settings = {
+      tsserver_file_preferences = {
+        includeCompletionsForModuleExports = true,
+        includeCompletionsForImportStatements = true,
+        importModuleSpecifierPreference = "relative",
+      },
+    },
     on_attach = function()
       -- Mappings
       nnoremap("<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", "Organize Imports")
