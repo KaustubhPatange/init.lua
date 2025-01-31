@@ -11,6 +11,8 @@ function M.setup()
         includeCompletionsForModuleExports = true,
         includeCompletionsForImportStatements = true,
         importModuleSpecifierPreference = "relative",
+        quotePreference = "auto",
+        includeInlayParameterNameHints = "all",
       },
     },
     on_attach = function()
