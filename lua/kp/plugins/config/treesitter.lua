@@ -1,25 +1,11 @@
+require('ts-comments').setup()
+
 local opts = {
   highlight = { enable = true },
   auto_install = false,
   incremental_selection = { enable = true },
   autotag = { enable = true, enable_close_on_slash = false },
   ensure_installed = { "query", "vimdoc", "lua", "javascript", "typescript", "tsx", "python" },
-  languages = {
-    javascript = {
-      __default = "// %s",
-      jsx_element = "{/* %s */}",
-      jsx_fragment = "{/* %s */}",
-      jsx_attribute = "// %s",
-      comment = "// %s",
-    },
-    typescript = {
-      __default = "// %s",
-      __multiline = "/* %s */",
-      jsx_element = "{/* %s */}",
-      jsx_fragment = "{/* %s */}",
-      jsx_attribute = "// %s",
-    },
-  },
   playground = {
     enable = true,
     disable = {},
@@ -54,22 +40,6 @@ local opts = {
 }
 require("nvim-treesitter.configs").setup(opts)
 
-
-local comment = require "Comment"
-comment.setup {
-  -- pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-}
-
--- Mappings (Comment)
-nnoremap(
-  "<leader>/",
-  function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end,
-  "Comment line"
-)
-vnoremap(
-  "<leader>/",
-  "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-  "Toggle comment line"
-)
-
--- Mappings (Treesitter)
+-- -- Mappings
+vim.keymap.set("n", "<leader>/", "gcc", { remap = true, silent = true, desc = "Toggle comment" })
+vim.keymap.set("v", "<leader>/", "gc", { remap = true, silent = true, desc = "Toggle comment line" })
