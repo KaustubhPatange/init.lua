@@ -4,12 +4,13 @@ local api = require("lsp-progress.api")
 require('lsp-progress').setup({
   format = function(client_messages)
     -- icon: nf-fa-gear \uf013
-    local sign = ""
+    local sign = " LSP"
     if #client_messages > 0 then
+      client_messages[1] = client_messages[1]:gsub("Loading project%s+", "", 1)
       return sign .. " " .. table.concat(client_messages, " ")
     end
     if #api.lsp_clients() > 0 then
-      return sign
+      return ""
     end
     return ""
   end,
@@ -17,6 +18,7 @@ require('lsp-progress').setup({
 
 local function list_formatters()
   local f = conform.list_formatters(0)
+
   local fmts = {}
   for _, v in pairs(f) do
     if v.available then table.insert(fmts, v.name) end
