@@ -1,7 +1,24 @@
 local conform = require "conform"
 
+local api = require("lsp-progress.api")
+require('lsp-progress').setup({
+  format = function(client_messages)
+    -- icon: nf-fa-gear \uf013
+    local sign = " LSP"
+    if #client_messages > 0 then
+      client_messages[1] = client_messages[1]:gsub("Loading project%s+", "", 1)
+      return sign .. " " .. table.concat(client_messages, " ")
+    end
+    if #api.lsp_clients() > 0 then
+      return ""
+    end
+    return ""
+  end,
+})
+
 local function list_formatters()
   local f = conform.list_formatters(0)
+
   local fmts = {}
   for _, v in pairs(f) do
     if v.available then table.insert(fmts, v.name) end
@@ -16,6 +33,10 @@ local function show_macro_recording()
   else
     return "Recording @" .. recording_register
   end
+end
+
+local function show_lsp_progress()
+  return require('lsp-progress').progress()
 end
 
 require("lualine").setup {
@@ -40,7 +61,7 @@ require("lualine").setup {
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { "filename", { "macro-recording", fmt = show_macro_recording }, "lsp_progress" },
+    lualine_c = { "filename", { "macro-recording", fmt = show_macro_recording }, show_lsp_progress },
     lualine_x = {
       {
         "searchcount",
@@ -67,3 +88,10 @@ require("lualine").setup {
   inactive_winbar = {},
   extensions = {},
 }
+
+vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+  group = "lualine_augroup",
+  pattern = "LspProgressStatusUpdated",
+  callback = require("lualine").refresh,
+})

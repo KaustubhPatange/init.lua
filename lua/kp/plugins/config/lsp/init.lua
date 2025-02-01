@@ -1,5 +1,5 @@
 -- Add/Edit the server names
-local lsp_servers = { "tsserver", "eslint@4.8.0", "rust_analyzer", "lua_ls", "pyright" }
+local lsp_servers = { "ts_ls", "eslint@4.8.0", "rust_analyzer", "lua_ls", "pyright" }
 local formatters = {
   go = { "gofmt", "goimports" },
   lua = { "stylua" },
@@ -51,7 +51,7 @@ lsp_zero.on_attach(function(client, bufnr)
   -- Organize imports
   local clients_commands = {
     pyright = "pyright.organizeimports",
-    tsserver = "_typescript.organizeImports",
+    ts_ls = "_typescript.organizeImports",
   }
   for name, command in pairs(clients_commands) do
     if client.name == name then

@@ -5,6 +5,7 @@ return {
     "williamboman/mason.nvim",
     "rcarriga/nvim-dap-ui",
     "folke/neodev.nvim",
+    "nvim-neotest/nvim-nio"
   },
   lazy = false,
   config = function() require "kp.plugins.config.dap" end,

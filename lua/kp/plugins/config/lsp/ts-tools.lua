@@ -1,7 +1,7 @@
 local M = {}
 
 function M.should_setup(server_name)
-  return server_name == "tsserver"
+  return server_name == "ts_ls"
 end
 
 function M.setup()

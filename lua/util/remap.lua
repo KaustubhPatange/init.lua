@@ -2,9 +2,8 @@
 function nnoremap(key, command, desc, opts)
   if desc then
     local wk = require "which-key"
-    wk.register({
-      [key] = { command, desc },
-    }, extend_tbl(opts or {}, { mode = "n" }))
+    local opt = { key, command, desc = desc, mode = "n" }
+    wk.add({ extend_tbl(opt, opts or {}) })
   else
     vim.keymap.set("n", key, command, opts or {})
   end
@@ -14,9 +13,8 @@ end
 function vnoremap(key, command, desc, opts)
   if desc then
     local wk = require "which-key"
-    wk.register({
-      [key] = { command, desc },
-    }, extend_tbl(opts or {}, { mode = "v" }))
+    local opt = { key, command, desc =desc, mode = "v" }
+    wk.add({ extend_tbl(opt, opts or {}) })
   else
     vim.keymap.set("v", key, command, opts or {})
   end
@@ -24,7 +22,5 @@ end
 
 function secmap(key, desc)
   local wk = require "which-key"
-  wk.register({
-    [key] = { desc },
-  }, { prefix = "" })
+  wk.add({ { key, desc = desc, prefix = "" } })
 end

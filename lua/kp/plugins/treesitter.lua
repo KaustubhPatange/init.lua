@@ -3,10 +3,10 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "windwp/nvim-ts-autotag",
-      "JoosepAlviste/nvim-ts-context-commentstring",
       "numToStr/Comment.nvim",
       "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-refactor",
+      "folke/ts-comments.nvim",
     },
     cmd = {
       "TSBufDisable",
