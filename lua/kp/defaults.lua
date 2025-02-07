@@ -7,7 +7,7 @@ vim.g.mapleader = " "
 vim.opt.termguicolors = true
 
 -- Hide command line
-vim.o.cmdheight = 1
+vim.o.cmdheight = 0
 -- Set maxium height of popup menu
 vim.o.pumheight = 10
 
