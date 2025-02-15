@@ -62,7 +62,7 @@ require("diffview").setup {
     log_options = { -- See ':h diffview-config-log_options'
       git = {
         single_file = {
-          diff_merges = "combined",
+          diff_merges = "first-parent",
         },
         multi_file = {
           diff_merges = "first-parent",
