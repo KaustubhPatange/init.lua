@@ -40,6 +40,7 @@ vim.opt.infercase = true
 vim.o.updatetime = 250
 
 vim.o.sessionoptions = "blank,buffers"
+vim.o.jumpoptions = "view"
 
 -- Load default internal vim plugins
 vim.cmd("packadd cfilter")
@@ -116,6 +117,7 @@ local cursor_highlight = function()
 end
 
 vim.api.nvim_create_user_command('CursorPosition', cursor_highlight, {})
+vim.api.nvim_create_user_command('CP', cursor_highlight, {})
 
 -- Command to create file in an not exist dir
 vim.api.nvim_create_user_command("WForce", function()
