@@ -79,7 +79,6 @@ telescope.setup {
 }
 telescope.load_extension "fzf"
 telescope.load_extension "live_grep_args"
-telescope.load_extension "advanced_git_search"
 
 -- Mappings
 nnoremap("<leader>f<CR>", function() require("telescope.builtin").resume() end, "Resume previous search")
@@ -122,8 +121,3 @@ nnoremap("<leader>ls", function()
     require("telescope.builtin").lsp_document_symbols()
   end
 end, "Search symbols")
-
-
--- Mapping Advance git search
-nnoremap("<leader>gF", telescope.extensions.advanced_git_search.diff_commit_file, "Diff Commit File")
-nnoremap("<leader>gL", telescope.extensions.advanced_git_search.diff_commit_line, "Diff Commit Line")
