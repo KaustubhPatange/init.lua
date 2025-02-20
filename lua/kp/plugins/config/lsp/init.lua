@@ -137,6 +137,9 @@ require("mason-lspconfig").setup {
     end,
     eslint = function()
       require("lspconfig").eslint.setup {
+        cmd_env = {
+          NODE_OPTIONS = "--max-old-space-size=8192"
+        },
         settings = {
           codeAction = {
             showDocumentation = {
