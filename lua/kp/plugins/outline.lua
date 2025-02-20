@@ -7,5 +7,8 @@ return {
   },
   opts = {
     -- Your setup opts here
+    keymaps = {
+      close = { 'q' }
+    }
   },
 }
