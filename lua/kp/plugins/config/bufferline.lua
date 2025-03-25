@@ -1,7 +1,6 @@
 local function bdelete(bufnr, force)
   force = force or false
-  local bd = require("bufdelete")
-  bd.bufdelete(bufnr, force)
+  vim.api.nvim_buf_delete(bufnr, { force = force })
 end
 
 local function delete_buffer()
@@ -15,6 +14,37 @@ local function delete_buffer()
     end
   else
     bdelete(0, true)
+  end
+end
+
+local function close_others_except_splits_and_current()
+  -- Get all file buffers from all windows
+  local function get_buffers_in_splits()
+    local buffers_in_splits = {}
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      if vim.bo[buf].buftype == '' and vim.api.nvim_buf_get_name(buf) ~= '' then
+        buffers_in_splits[buf] = true
+      end
+    end
+    return buffers_in_splits
+  end
+
+  local current_buf = vim.api.nvim_get_current_buf()
+  local buffers_in_splits = get_buffers_in_splits()
+
+
+  local protected_buffers = {}
+  protected_buffers[current_buf] = true
+  for buf, _ in pairs(buffers_in_splits) do
+    protected_buffers[buf] = true
+  end
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[bufnr].buftype == '' and vim.api.nvim_buf_get_name(bufnr) ~= '' then
+      if not protected_buffers[bufnr] and vim.api.nvim_buf_is_valid(bufnr) then
+        bdelete(bufnr, true)
+      end
+    end
   end
 end
 
@@ -99,7 +129,7 @@ nnoremap("<leader>bd", delete_buffer, "Delete Buffer")
 nnoremap("<leader>bD", "<cmd>bdelete<CR>", "Delete Buffer (Force)")
 nnoremap("<leader>c", delete_buffer, "Delete Buffer")
 nnoremap("<leader>p", "<Cmd>BufferLinePick<CR>", "Pick buffer")
-nnoremap("<leader>bc", "<Cmd>BufferLineCloseOthers<CR>", "Delete other buffers")
+nnoremap("<leader>bc", close_others_except_splits_and_current, "Delete other buffers")
 nnoremap("<leader>br", "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right")
 nnoremap("<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left")
 nnoremap("<leader>bp", "<Cmd>BufferLineTogglePin<CR>", "Pin buffer name")
