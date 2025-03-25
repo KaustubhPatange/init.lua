@@ -23,7 +23,7 @@ function M.get_relative_home_path()
 end
 
 function M.get_file_name()
-  return get_path(":t")
+  return get_path(":t:r")
 end
 
 function M.get_extension()
