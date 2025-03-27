@@ -1,6 +1,7 @@
 local function bdelete(bufnr, force)
   force = force or false
-  vim.api.nvim_buf_delete(bufnr, { force = force })
+  local bd = require('bufdelete')
+  bd.bufdelete(bufnr, force)
 end
 
 local function delete_buffer()
@@ -42,7 +43,7 @@ local function close_others_except_splits_and_current()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if vim.bo[bufnr].buftype == '' and vim.api.nvim_buf_get_name(bufnr) ~= '' then
       if not protected_buffers[bufnr] and vim.api.nvim_buf_is_valid(bufnr) then
-        bdelete(bufnr, true)
+        vim.api.nvim_buf_delete(bufnr, { force = true })
       end
     end
   end
