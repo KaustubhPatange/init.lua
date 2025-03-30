@@ -41,6 +41,17 @@ telescope.setup {
         ["<C-p>"] = actions.cycle_history_prev,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
+        ["<C-y>"] = function()
+          local entry = require("telescope.actions.state").get_selected_entry()
+          if not entry then return end
+          local data = entry.text and require('util.str').trim(entry.text) or entry[1]
+          local cb_opts = vim.opt.clipboard:get()
+          if vim.tbl_contains(cb_opts, "unnamed") then vim.fn.setreg("*", data) end
+          if vim.tbl_contains(cb_opts, "unnamedplus") then
+            vim.fn.setreg("+", data)
+          end
+          vim.fn.setreg("", data)
+        end,
       },
       n = { ["q"] = actions.close },
     },

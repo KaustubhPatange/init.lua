@@ -42,6 +42,9 @@ vim.o.updatetime = 250
 vim.o.sessionoptions = "blank,buffers"
 vim.o.jumpoptions = "view"
 
+vim.opt.clipboard = "unnamedplus"
+
+
 -- Load default internal vim plugins
 vim.cmd("packadd cfilter")
 
