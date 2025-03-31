@@ -2,7 +2,6 @@ require("toggleterm").setup {
   size = 10,
   open_mapping = [[<F7>]],
   on_open = function(term)
-    vim.cmd "startinsert!"
     vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
   end,
   shading_factor = 2,
