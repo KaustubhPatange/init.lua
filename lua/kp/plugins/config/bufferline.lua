@@ -49,6 +49,15 @@ local function close_others_except_splits_and_current()
   end
 end
 
+-- Filter buffer for bufdelete.nvim to ignore quickfix buftype.
+-- Ref: https://github.com/famiu/bufdelete.nvim/blob/master/lua/bufdelete/init.lua#L95
+vim.g.bufdelete_buf_filter = function()
+  return vim.tbl_filter(function(buf)
+    return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and vim.bo[buf].buftype ~= 'quickfix'
+  end, vim.api.nvim_list_bufs())
+end
+
+
 local opts = {
   options = {
     -- diagnostics = "nvim_lsp",
