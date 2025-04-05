@@ -2,6 +2,7 @@ local telescope = require "telescope"
 local actions = require "telescope.actions"
 local icons = require "util.icons"
 local lga_actions = require "telescope-live-grep-args.actions"
+local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
 
 telescope.setup {
   defaults = {
@@ -41,6 +42,7 @@ telescope.setup {
         ["<C-p>"] = actions.cycle_history_prev,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
+        ["<C-q>"] = lga_actions.quote_prompt(),
         ["<C-y>"] = function()
           local entry = require("telescope.actions.state").get_selected_entry()
           if not entry then return end
@@ -52,25 +54,13 @@ telescope.setup {
           end
           vim.fn.setreg("", data)
         end,
+        ["<C-space>"] = actions.to_fuzzy_refine,
       },
       n = { ["q"] = actions.close },
     },
     extensions = {
       live_grep_args = {
-        auto_quoting = true, -- enable/disable auto-quoting
-        -- define mappings, e.g.
-        mappings = {         -- extend mappings
-          i = {
-            ["<C-k>"] = lga_actions.quote_prompt(),
-            ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
-            -- freeze the current list and start a fuzzy search in the frozen list
-            ["<C-space>"] = actions.to_fuzzy_refine,
-          },
-        },
-        -- ... also accepts theme settings, for example:
-        -- theme = "dropdown", -- use dropdown theme
-        -- theme = { }, -- use own theme spec
-        -- layout_config = { mirror=true }, -- mirror preview pane
+        auto_quoting = false,
       },
     },
     -- open files in the first window that is an actual file.
@@ -109,21 +99,20 @@ nnoremap("<leader>fm", function() require("telescope.builtin").man_pages() end, 
 nnoremap("<leader>fo", function() require("telescope.builtin").oldfiles() end, "Find history")
 nnoremap("<leader>fs", function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end, "Find Symbols")
 -- maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Find registers" }
+
+local live_grep_opts = {
+  file_ignore_patterns = { "%node_modules/", "%.git/", "%.aider/", "%.cache/", ".aider.chat", ".npz", ".png", ".jpg", ".webp" },
+}
+
 nnoremap("<leader>ft", function() require("telescope.builtin").colorscheme { enable_preview = true } end, "Find themes")
 nnoremap("<leader>fw", function()
-  require("telescope").extensions.live_grep_args.live_grep_args {
-    file_ignore_patterns = { "%node_modules/", "%.git/", "%.aider/", "%.cache/", ".aider.chat", ".npz", ".png", ".jpg", ".webp" },
-    -- additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-  }
+  require("telescope").extensions.live_grep_args.live_grep_args(live_grep_opts)
 end, "Find words")
-nnoremap("<leader>fW", function()
-  local cword = vim.fn.expand "<cword>"
-  require("telescope").extensions.live_grep_args.live_grep_args {
-    default_text = cword,
-    file_ignore_patterns = { "%node_modules/", "%.git/", "%.aider/", "%.cache/", ".aider.chat", ".npz", ".png", ".jpg", ".webp" },
-    -- additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-  }
-end, "Find words under cursor")
+
+vnoremap("<leader>fw", function()
+  live_grep_args_shortcuts.grep_visual_selection(live_grep_opts)
+end, "Find words")
+
 nnoremap("<leader>ls", function()
   local aerial_avail, _ = pcall(require, "aerial")
   if aerial_avail then
