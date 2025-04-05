@@ -33,7 +33,7 @@ local function close_others_except_splits_and_current()
 
   local current_buf = vim.api.nvim_get_current_buf()
   local buffers_in_splits = get_buffers_in_splits()
-
+  local lsp_util = require('kp.plugins.config.lsp.util')
 
   local protected_buffers = {}
   protected_buffers[current_buf] = true
@@ -41,8 +41,9 @@ local function close_others_except_splits_and_current()
     protected_buffers[buf] = true
   end
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.bo[bufnr].buftype == '' and vim.api.nvim_buf_get_name(bufnr) ~= '' then
+    if vim.bo[bufnr].buftype == '' then
       if not protected_buffers[bufnr] and vim.api.nvim_buf_is_valid(bufnr) then
+        lsp_util.detach_clients_on_buffer(bufnr)
         vim.api.nvim_buf_delete(bufnr, { force = true })
       end
     end
