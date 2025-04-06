@@ -42,7 +42,7 @@ telescope.setup {
         ["<C-p>"] = actions.cycle_history_prev,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
-        ["<C-q>"] = lga_actions.quote_prompt(),
+        ["<C-t>"] = lga_actions.quote_prompt(),
         ["<C-y>"] = function()
           local entry = require("telescope.actions.state").get_selected_entry()
           if not entry then return end
