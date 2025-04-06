@@ -1,6 +1,6 @@
+local bd = require('bufdelete')
 local function bdelete(bufnr, force)
   force = force or false
-  local bd = require('bufdelete')
   bd.bufdelete(bufnr, force)
 end
 
@@ -31,8 +31,22 @@ local function close_others_except_splits_and_current()
     return buffers_in_splits
   end
 
+  -- Get all buffers referenced in quickfix list
+  local function get_buffers_in_quickfix()
+    local qf_bufs = {}
+    if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then -- if quickfix window is open
+      for _, item in ipairs(vim.fn.getqflist()) do
+        if item.bufnr and vim.api.nvim_buf_is_valid(item.bufnr) then
+          qf_bufs[item.bufnr] = true
+        end
+      end
+    end
+    return qf_bufs
+  end
+
   local current_buf = vim.api.nvim_get_current_buf()
   local buffers_in_splits = get_buffers_in_splits()
+  local quickfix_buffers = get_buffers_in_quickfix()
   local lsp_util = require('kp.plugins.config.lsp.util')
 
   local protected_buffers = {}
@@ -40,11 +54,18 @@ local function close_others_except_splits_and_current()
   for buf, _ in pairs(buffers_in_splits) do
     protected_buffers[buf] = true
   end
+
+  -- Actual buffer deleting logic
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if vim.bo[bufnr].buftype == '' then
       if not protected_buffers[bufnr] and vim.api.nvim_buf_is_valid(bufnr) then
         lsp_util.detach_clients_on_buffer(bufnr)
-        vim.api.nvim_buf_delete(bufnr, { force = true })
+
+        if quickfix_buffers[bufnr] then
+          bd.bufdelete(bufnr, true)
+        else
+          vim.api.nvim_buf_delete(bufnr, { force = true })
+        end
       end
     end
   end
