@@ -3,5 +3,9 @@ return {
   event = "FileType qf",
   ---@module "quicker"
   ---@type quicker.SetupOptions
-  opts = {},
+  opts = {
+    keys = {
+      { "<C-o>", "" }
+    }
+  },
 }
