@@ -9,7 +9,7 @@ if [ "$root_user" != "$current_user" ]; then
 fi
 
 $append_sudo apt -y install git ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
-git clone -b release-0.9 --depth 1 https://github.com/neovim/neovim
+git clone -b v0.10.4 --depth 1 https://github.com/neovim/neovim
 cd neovim
 make CMAKE_BUILD_TYPE=Release
 $append_sudo make install
