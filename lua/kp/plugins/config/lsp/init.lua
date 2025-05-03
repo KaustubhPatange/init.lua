@@ -1,34 +1,9 @@
 -- Add/Edit the server names
-local lsp_servers = { "ts_ls", "eslint@4.8.0", "rust_analyzer", "lua_ls", "pyright" }
-local formatters = {
-  go = { "gofmt", "goimports" },
-  lua = { "stylua" },
-  python = { "isort", "black" },
-  javascript = { "prettier" },
-  typescript = { "prettier" },
-  javascriptreact = { "prettier" },
-  typescriptreact = { "prettier" },
-}
+local lsp_servers = { "ts_ls", "eslint@4.8.0", "rust_analyzer", "lua_ls", "pyright", "biome" }
 
--- Conform for formatting buffers
-local slow_format_filetypes = {}
-local conform = require "conform"
-conform.setup {
-  formatters_by_ft = formatters,
-  format_on_save = function(bufnr)
-    if slow_format_filetypes[vim.bo[bufnr].filetype] then return end
-    local function on_format(err)
-      if err and err:match "timeout$" then slow_format_filetypes[vim.bo[bufnr].filetype] = true end
-    end
-    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
-    return { timeout_ms = 200, lsp_fallback = true }, on_format
-  end,
-  format_after_save = function(bufnr)
-    if not slow_format_filetypes[vim.bo[bufnr].filetype] then return end
-    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
-    return { lsp_fallback = true }
-  end,
-}
+local formatters = require('kp.plugins.config.lsp.formatters')
+formatters.setup()
+
 
 -- Special keymaps on current buffer based on lsp client
 local lsp_zero = require "lsp-zero"
@@ -45,8 +20,8 @@ lsp_zero.on_attach(function(client, bufnr)
   nnoremap("gr", function() vim.lsp.buf.references() end, "Find references", opts)
   nnoremap("<leader>lr", function() vim.lsp.buf.rename() end, "Rename Symbol", opts)
   nnoremap("<C-p>", function() vim.lsp.buf.signature_help() end, "Signature help", opts)
-  nnoremap("<leader>lf", function() conform.format { async = true, lsp_fallback = true } end, "Format buffer")
-  vnoremap("<leader>lf", function() conform.format { async = true, lsp_fallback = true } end, "Format selected lines")
+
+  formatters.attach_mappings()
 
   -- Organize imports
   local clients_commands = {
@@ -94,7 +69,7 @@ end)
 require("mason").setup {}
 require("mason-lspconfig").setup {
   ensure_installed = lsp_servers,
-  automatic_installation = true,
+  automatic_installation = false,
   handlers = {
     function(server_name)
       local jdtls = require('kp.plugins.config.lsp.jdtls')
@@ -154,7 +129,14 @@ require("mason-lspconfig").setup {
         }
       }
     end,
+    biome = function()
+      local util = require("lspconfig.util")
+      require("lspconfig").biome.setup {
+        root_dir = util.root_pattern("biome.json", "biome.jsonc")
+      }
+    end
   },
+
 }
 
 local cmp = require "cmp"
