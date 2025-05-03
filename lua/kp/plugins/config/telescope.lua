@@ -52,7 +52,7 @@ telescope.setup {
           if vim.tbl_contains(cb_opts, "unnamedplus") then
             vim.fn.setreg("+", data)
           end
-          vim.fn.setreg("", data)
+          vim.fn.setreg("+", data) -- default to system clipboard
         end,
         ["<C-space>"] = actions.to_fuzzy_refine,
       },
