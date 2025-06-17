@@ -16,7 +16,8 @@ function M.setup()
         includeInlayParameterNameHints = "all",
       },
     },
-    on_attach = function()
+    on_attach = function(client)
+      client.server_capabilities.documentFormattingProvider = false
       -- Mappings
       nnoremap("<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", "Organize Imports")
     end
