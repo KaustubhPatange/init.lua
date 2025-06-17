@@ -7,6 +7,7 @@ return {
       "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-refactor",
       "folke/ts-comments.nvim",
+      "nvim-treesitter/nvim-treesitter-context",
     },
     cmd = {
       "TSBufDisable",
