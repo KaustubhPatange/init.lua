@@ -15,6 +15,13 @@ function M.setup()
         quotePreference = "auto",
         includeInlayParameterNameHints = "all",
       },
+      vtsls = {
+        experimental = {
+          completion = {
+            enableServerSideFuzzyMatch = true,
+          },
+        },
+      },
     },
     on_attach = function(client)
       client.server_capabilities.documentFormattingProvider = false
