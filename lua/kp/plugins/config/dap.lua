@@ -105,9 +105,19 @@ nnoremap(
   function() require("dap").set_breakpoint(vim.fn.input "Breakpoint condition: ") end,
   "Breakpoint Condition"
 )
-nnoremap("<Leader>dt", function() require("dap").terminate() end, "Terminate")
+nnoremap("<Leader>dt", function()
+  require("dap").terminate()
+  require('dapui').close()
+end, "Terminate")
 nnoremap("<leader>dp", function() require("dap").pause() end, "Pause")
 nnoremap("<leader>du", function() require("dapui").toggle() end, "Toggle DAP UI ")
+nnoremap("<leader>dr", function()
+  local windows = require('dapui.windows')
+  for _, win_layout in ipairs(windows.layouts) do
+    win_layout:close()
+    win_layout:resize()
+  end
+end, "Reset DAP UI")
 nnoremap("<leader>dC", function() require("dap").run_to_cursor() end, "Run to Cursor")
 -- nnoremap("<Leader>dB", function() require("dap").set_breakpoint() end)
 -- nnoremap("<Leader>lp", function() require("dap").set_breakpoint(nil, nil, vim.fn.input "Log point message: ") end)
