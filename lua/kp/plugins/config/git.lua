@@ -456,6 +456,8 @@ nnoremap("<leader>gf", function()
   end
 end, "Toggle Diffview Files")
 
+nnoremap("<leader>gF", "<cmd>DiffviewFileHistory %<cr>", "Toggle Diffview current file")
+
 nnoremap("<leader>gh", function()
   local bufnrs = vim.api.nvim_list_bufs()
   local exists = false
