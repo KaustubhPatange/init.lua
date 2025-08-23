@@ -5,7 +5,7 @@ local opts = {
   auto_install = false,
   incremental_selection = { enable = true },
   autotag = { enable = true, enable_close_on_slash = false },
-  ensure_installed = { "query", "vimdoc", "lua", "javascript", "typescript", "tsx", "python" },
+  ensure_installed = { "query", "vimdoc", "lua", "javascript", "typescript", "tsx", "python", "jsonc" },
   playground = {
     enable = true,
     disable = {},
