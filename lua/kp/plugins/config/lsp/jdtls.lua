@@ -80,6 +80,7 @@ function M.setup()
     pattern = "java",
     callback = attach_client,
   })
+  vim.lsp.enable("jdtls")
 end
 
 return M

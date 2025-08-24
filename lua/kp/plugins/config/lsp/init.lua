@@ -70,74 +70,78 @@ require("mason").setup {}
 require("mason-lspconfig").setup {
   ensure_installed = lsp_servers,
   automatic_installation = false,
-  handlers = {
-    function(server_name)
-      local jdtls = require('kp.plugins.config.lsp.jdtls')
-      if jdtls.should_setup(server_name) then
-        jdtls.setup()
-      end
-
-      local ts_tools = require("kp.plugins.config.lsp.ts-tools")
-      if ts_tools.should_setup(server_name) then
-        ts_tools.setup()
-      end
-    end,
-    pyright = function()
-      require("lspconfig").pyright.setup {
-        settings = {
-          python = {
-            analysis = {
-              -- diagnosticMode = "workspace",
-            },
-          },
-        },
-      }
-    end,
-    lua_ls = function()
-      local lua_opts = lsp_zero.nvim_lua_ls()
-      require("lspconfig").lua_ls.setup(lua_opts)
-    end,
-    gopls = function()
-      require("lspconfig").gopls.setup {
-        settings = {
-          gopls = {
-            analyses = {
-              unusedparams = true,
-            },
-            staticcheck = true,
-            gofumpt = true,
-          },
-        },
-      }
-    end,
-    eslint = function()
-      require("lspconfig").eslint.setup {
-        cmd_env = {
-          NODE_OPTIONS = "--max-old-space-size=8192"
-        },
-        settings = {
-          codeAction = {
-            showDocumentation = {
-              enable = false
-            }
-          },
-          codeActionOnSave = {
-            enable = false
-          },
-          format = false,
-          quiet = false,
-        }
-      }
-    end,
-    biome = function()
-      local util = require("lspconfig.util")
-      require("lspconfig").biome.setup {
-        root_dir = util.root_pattern("biome.json", "biome.jsonc")
-      }
-    end
-  },
-
+  automatic_enable = false,
+  handlers = {}
 }
+
+-- LSP Configs
+local lsp_util = require("lspconfig.util")
+
+vim.lsp.config("gopls", {
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+})
+vim.lsp.enable("gopls")
+
+vim.lsp.config("pyright", {
+  settings = {
+    python = {
+      analysis = {
+        -- diagnosticMode = "workspace",
+      },
+    },
+  },
+})
+vim.lsp.enable("pyright")
+
+vim.lsp.config("eslint", {
+  cmd_env = {
+    NODE_OPTIONS = "--max-old-space-size=8192"
+  },
+  settings = {
+    codeAction = {
+      showDocumentation = {
+        enable = false
+      }
+    },
+    codeActionOnSave = {
+      enable = false
+    },
+    format = false,
+    quiet = false,
+  }
+})
+vim.lsp.enable("eslint")
+
+local lua_opts = lsp_zero.nvim_lua_ls()
+vim.lsp.config("lua_ls", {
+  require("lspconfig").lua_ls.setup(lua_opts)
+
+})
+vim.lsp.enable("lua_ls")
+
+vim.lsp.config("biome", {
+  root_dir = lsp_util.root_pattern("biome.json", "biome.jsonc")
+})
+vim.lsp.enable("biome")
+
+vim.lsp.enable("kotlin_lsp")
+
+local ts_tools = require("kp.plugins.config.lsp.ts-tools")
+ts_tools.setup()
+
+local jdtls = require('kp.plugins.config.lsp.jdtls')
+jdtls.setup()
+
+
+-- CMP
 
 local cmp = require "cmp"
 local cmp_select = { behavior = cmp.SelectBehavior.Select }

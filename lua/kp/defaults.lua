@@ -39,6 +39,8 @@ vim.opt.infercase = true
 
 vim.o.updatetime = 250
 
+vim.o.winborder = 'rounded'
+
 vim.o.sessionoptions = "blank,buffers"
 vim.o.jumpoptions = "view"
 
