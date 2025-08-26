@@ -8,7 +8,7 @@ My personal neovim config.
 ## Requirements
 
 
-- [Neovim >=0.9.5 + config](https://github.com/neovim/neovim/tree/release-0.9)
+- [Neovim >=0.11.0 + config](https://github.com/neovim/neovim/tree/release-0.11)
 	- `curl https://raw.githubusercontent.com/KaustubhPatange/init.lua/master/scripts/install_nvim.sh | sh`
 - [Node >=18](https://nodejs.org/en/)
 	- `curl https://raw.githubusercontent.com/KaustubhPatange/init.lua/master/scripts/install_node.sh | sh`
