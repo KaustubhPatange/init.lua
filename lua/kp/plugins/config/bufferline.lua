@@ -135,18 +135,24 @@ function RemoveBufferFromSavedView()
   SavedBufView[buf] = nil
 end
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "VeryLazy", -- Adjust based on your lazy loading configuration
-  callback = function()
-    vim.api.nvim_exec([[
-          augroup AutoWinView
-            autocmd!
-            autocmd BufLeave * lua AutoSaveWinView()
-            autocmd BufEnter * lua AutoRestoreWinView()
-            autocmd BDeletePost * lua RemoveBufferFromSavedView()
-          augroup END
-        ]], false)
-  end,
+local augroup = vim.api.nvim_create_augroup("AutoWinView", { clear = true })
+
+vim.api.nvim_create_autocmd("BufLeave", {
+  group = augroup,
+  callback = AutoSaveWinView,
+  desc = "Save window view when leaving buffer"
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = augroup,
+  callback = AutoRestoreWinView,
+  desc = "Restore window view when entering buffer"
+})
+
+vim.api.nvim_create_autocmd("BufDelete", {
+  group = augroup,
+  callback = RemoveBufferFromSavedView,
+  desc = "Remove buffer from saved views on delete"
 })
 
 local function print_buffer_name()
