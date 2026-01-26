@@ -1,5 +1,5 @@
 -- Add/Edit the server names
-local lsp_servers = { "ts_ls", "eslint@4.8.0", "rust_analyzer", "lua_ls", "pyright", "biome" }
+local lsp_servers = { "ts_ls", "eslint@4.8.0", "rust_analyzer", "lua_ls", "pyright", "biome", "svelte" }
 
 local formatters = require('kp.plugins.config.lsp.formatters')
 formatters.setup()
@@ -134,6 +134,7 @@ vim.lsp.config("biome", {
 vim.lsp.enable("biome")
 
 vim.lsp.enable("kotlin_lsp")
+vim.lsp.enable("svelte")
 
 local ts_tools = require("kp.plugins.config.lsp.ts-tools")
 ts_tools.setup()
