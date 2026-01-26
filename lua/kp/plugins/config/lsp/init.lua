@@ -100,6 +100,7 @@ vim.lsp.config("pyright", {
   },
 })
 vim.lsp.enable("pyright")
+vim.lsp.enable("rust_analyzer")
 
 vim.lsp.config("eslint", {
   cmd_env = {
