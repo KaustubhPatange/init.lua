@@ -10,6 +10,8 @@ telescope.setup {
     selection_caret = string.format("%s ", icons.Selected),
     path_display = { "truncate" },
     sorting_strategy = "ascending",
+    dynamic_preview_title = true,
+    selection_strategy = "follow",
     vimgrep_arguments = {
       "rg",
       "--color=never",
