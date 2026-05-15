@@ -9,19 +9,8 @@
 --   },
 -- })
 
+local util = require("kp.plugins.config.lsp.util")
 local M = {}
-
-local function deep_merge(base, patch)
-  local result = vim.deepcopy(base)
-  for k, v in pairs(patch) do
-    if type(v) == "table" and type(result[k]) == "table" and not vim.islist(v) then
-      result[k] = deep_merge(result[k], v)
-    else
-      result[k] = vim.deepcopy(v)
-    end
-  end
-  return result
-end
 
 function M.should_setup(server_name)
   return server_name == "ts_ls"
@@ -52,7 +41,7 @@ M.config = {
 }
 
 function M.setup(merge_config)
-  local final = merge_config and deep_merge(M.config, merge_config) or M.config
+  local final = merge_config and util.deep_merge(M.config, merge_config) or M.config
   require("typescript-tools").setup(final)
 end
 

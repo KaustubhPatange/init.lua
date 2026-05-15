@@ -75,66 +75,14 @@ require("mason-lspconfig").setup {
 }
 
 -- LSP Configs
-local lsp_util = require("lspconfig.util")
-
-vim.lsp.config("gopls", {
-  settings = {
-    gopls = {
-      analyses = {
-        unusedparams = true,
-      },
-      staticcheck = true,
-      gofumpt = true,
-    },
-  },
-})
-vim.lsp.enable("gopls")
-
-vim.lsp.config("pyright", {
-  settings = {
-    python = {
-      analysis = {
-        -- diagnosticMode = "workspace",
-      },
-    },
-  },
-})
-vim.lsp.enable("pyright")
-vim.lsp.enable("rust_analyzer")
-
-vim.lsp.config("eslint", {
-  cmd_env = {
-    NODE_OPTIONS = "--max-old-space-size=8192"
-  },
-  settings = {
-    codeAction = {
-      showDocumentation = {
-        enable = false
-      }
-    },
-    codeActionOnSave = {
-      enable = false
-    },
-    format = false,
-    quiet = false,
-  }
-})
-vim.lsp.enable("eslint")
-
-local lua_opts = lsp_zero.nvim_lua_ls()
-vim.lsp.config("lua_ls", {
-  require("lspconfig").lua_ls.setup(lua_opts)
-
-})
-vim.lsp.enable("lua_ls")
-
-vim.lsp.config("biome", {
-  root_dir = lsp_util.root_pattern("biome.json", "biome.jsonc")
-})
-vim.lsp.enable("biome")
-
-vim.lsp.enable("kotlin_lsp")
-vim.lsp.enable("svelte")
+require("kp.plugins.config.lsp.gopls").setup()
+require("kp.plugins.config.lsp.pyright").setup()
+require("kp.plugins.config.lsp.rust_analyzer").setup()
+require("kp.plugins.config.lsp.eslint").setup()
+require("kp.plugins.config.lsp.lua_ls").setup()
+require("kp.plugins.config.lsp.biome").setup()
+require("kp.plugins.config.lsp.kotlin_lsp").setup()
+require("kp.plugins.config.lsp.svelte").setup()
 
 local ts_tools = require("kp.plugins.config.lsp.ts-tools")
 ts_tools.setup()
