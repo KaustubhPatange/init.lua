@@ -12,6 +12,7 @@ lsp_zero.on_attach(function(client, bufnr)
 
   local opts = { buffer = bufnr, remap = false }
   nnoremap("gd", function() vim.lsp.buf.definition() end, "Go to definition", opts)
+  nnoremap("gi", function() vim.lsp.buf.implementation() end, "Go to implementation", opts)
   nnoremap("K", function() vim.lsp.buf.hover() end, "Show definition", opts)
   nnoremap("<leader>ld", function() vim.diagnostic.open_float() end, "Hover diagnostic", opts)
   nnoremap("]d", function() vim.diagnostic.goto_next() end, "Next diagnostic", opts)
