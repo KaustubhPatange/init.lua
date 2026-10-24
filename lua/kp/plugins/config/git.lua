@@ -2,14 +2,17 @@
 local actions = require "diffview.actions"
 
 require("diffview").setup {
-  diff_binaries = false,    -- Show diffs for binaries
-  enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
-  git_cmd = { "git" },      -- The git executable followed by default args.
-  hg_cmd = { "hg" },        -- The hg executable followed by default args.
-  use_icons = true,         -- Requires nvim-web-devicons
-  show_help_hints = true,   -- Show hints for how to open the help panel
-  watch_index = true,       -- Update views and index buffers when the git index changes.
-  icons = {                 -- Only applies when use_icons is true.
+  diff_binaries = false,   -- Show diffs for binaries
+  enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
+  git_cmd = { "git" },     -- The git executable followed by default args.
+  hg_cmd = { "hg" },       -- The hg executable followed by default args.
+  use_icons = true,        -- Requires nvim-web-devicons
+  show_help_hints = true,  -- Show hints for how to open the help panel
+  watch_index = true,      -- Update views and index buffers when the git index changes.
+  persist_selections = {   -- Keep reviewed (`w`) marks and hide state (`H`) across restarts
+    enabled = true,
+  },
+  icons = {                -- Only applies when use_icons is true.
     folder_closed = "",
     folder_open = "",
   },
@@ -85,7 +88,7 @@ require("diffview").setup {
     },
   },
   default_args = { -- Default args prepended to the arg-list for the listed commands
-    DiffviewOpen = {},
+    DiffviewOpen = { "--imply-local" },
     DiffviewFileHistory = {},
   },
   hooks = {},                 -- See ':h diffview-config-hooks'
@@ -106,7 +109,7 @@ require("diffview").setup {
       { "n", "<C-w>gf",    actions.goto_file_tab,   { desc = "Open the file in a new tabpage" } },
       -- { "n", "<leader>e", actions.focus_files, { desc = "Bring focus to the file panel" } },
       { "n", "<leader>e",  actions.toggle_files,    { desc = "Toggle the file panel." } },
-      { "n", "<leader>b", false }, -- Free <leader>b* for global buffer maps (e.g. <leader>by)
+      { "n", "<leader>b",  false }, -- Free <leader>b* for global buffer maps (e.g. <leader>by)
       { "n", "g<C-x>",     actions.cycle_layout,    { desc = "Cycle through available layouts." } },
       {
         "n",
@@ -424,7 +427,7 @@ require("diffview").setup {
       { "n", "<C-w>gf",       actions.goto_file_tab,             { desc = "Open the file in a new tabpage" } },
       -- { "n", "<leader>e", actions.focus_files, { desc = "Bring focus to the file panel" } },
       { "n", "<leader>e",     actions.toggle_files,              { desc = "Toggle the file panel" } },
-      { "n", "<leader>b", false }, -- Free <leader>b* for global buffer maps (e.g. <leader>by)
+      { "n", "<leader>b",     false }, -- Free <leader>b* for global buffer maps (e.g. <leader>by)
       { "n", "g<C-x>",        actions.cycle_layout,              { desc = "Cycle available layouts" } },
       { "n", "g?",            actions.help "file_history_panel", { desc = "Open the help panel" } },
     },
