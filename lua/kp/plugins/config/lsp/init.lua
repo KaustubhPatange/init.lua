@@ -133,6 +133,15 @@ nnoremap("<leader>ll", function()
   if input == "3" then vim.cmd "LspStop" end
 end, "LSP options")
 
+-- Diagnostic sign icons (also used by neo-tree)
+local diagnostic_sign_text = {
+  [vim.diagnostic.severity.ERROR] = " ",
+  [vim.diagnostic.severity.WARN] = " ",
+  [vim.diagnostic.severity.INFO] = " ",
+  [vim.diagnostic.severity.HINT] = "󰌵",
+}
+vim.diagnostic.config({ signs = { text = diagnostic_sign_text } })
+
 local set_diagnostic_severity
 set_diagnostic_severity = function()
   nnoremap("<leader>uD", function()
@@ -149,7 +158,11 @@ set_diagnostic_severity = function()
 
         local severity = { severity = opts }
 
-        vim.diagnostic.config({ virtual_text = severity, signs = severity, underline = severity })
+        vim.diagnostic.config({
+          virtual_text = severity,
+          signs = { severity = opts, text = diagnostic_sign_text },
+          underline = severity,
+        })
       end
       set_diagnostic_severity()
     end
