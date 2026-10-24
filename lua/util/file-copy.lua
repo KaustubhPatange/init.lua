@@ -3,7 +3,13 @@ local M = {}
 ---@param mods string filename-modifiers
 ---@return string
 local function get_path(mods)
-  return vim.fn.fnamemodify(vim.fn.expand("%"), mods)
+  local path = vim.fn.expand("%:p")
+  -- Diffview revision buffers are named diffview://<toplevel>/.git/<rev>/<relpath>
+  local toplevel, relpath = path:match("^diffview://(.-)/%.git/[^/]+/(.+)$")
+  if toplevel then
+    path = toplevel .. "/" .. relpath
+  end
+  return vim.fn.fnamemodify(path, mods)
 end
 
 local function copy_to_clipboard(path)

@@ -106,6 +106,7 @@ require("diffview").setup {
       { "n", "<C-w>gf",    actions.goto_file_tab,   { desc = "Open the file in a new tabpage" } },
       -- { "n", "<leader>e", actions.focus_files, { desc = "Bring focus to the file panel" } },
       { "n", "<leader>e",  actions.toggle_files,    { desc = "Toggle the file panel." } },
+      { "n", "<leader>b", false }, -- Free <leader>b* for global buffer maps (e.g. <leader>by)
       { "n", "g<C-x>",     actions.cycle_layout,    { desc = "Cycle through available layouts." } },
       {
         "n",
@@ -334,6 +335,7 @@ require("diffview").setup {
       },
       -- { "n", "<leader>e", actions.focus_files, { desc = "Bring focus to the file panel" } },
       { "n", "<leader>e", actions.toggle_files,      { desc = "Toggle the file panel" } },
+      { "n", "<leader>b", false }, -- Free <leader>b* for global buffer maps (e.g. <leader>by)
       { "n", "g<C-x>",    actions.cycle_layout,      { desc = "Cycle available layouts" } },
       { "n", "[x",        actions.prev_conflict,     { desc = "Go to the previous conflict" } },
       { "n", "]x",        actions.next_conflict,     { desc = "Go to the next conflict" } },
@@ -422,6 +424,7 @@ require("diffview").setup {
       { "n", "<C-w>gf",       actions.goto_file_tab,             { desc = "Open the file in a new tabpage" } },
       -- { "n", "<leader>e", actions.focus_files, { desc = "Bring focus to the file panel" } },
       { "n", "<leader>e",     actions.toggle_files,              { desc = "Toggle the file panel" } },
+      { "n", "<leader>b", false }, -- Free <leader>b* for global buffer maps (e.g. <leader>by)
       { "n", "g<C-x>",        actions.cycle_layout,              { desc = "Cycle available layouts" } },
       { "n", "g?",            actions.help "file_history_panel", { desc = "Open the help panel" } },
     },
